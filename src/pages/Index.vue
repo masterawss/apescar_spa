@@ -12,8 +12,8 @@
                             q-card.smooth-shadow(unelevate)
                                 q-card-section.q-pa-lg
                                     span.text-h6.text-center Iniciar sesión
-                                    q-input(label="Correo electrónico")
-                                    q-input(label="Contraseña")
+                                    q-input( v-model="email" label="Correo electrónico")
+                                    q-input( v-model="password" label="Contraseña" type="password")
                                     q-btn.q-mt-sm.full-width(label="Ingresar" color="secondary" )
                                     span ¿No eres miembro aún?
                                     br
@@ -63,6 +63,8 @@ import { QCard, QCardSection, QInput } from 'quasar'
 export default {
     components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard},
     data: () => ({
+        email: '',
+        password: '',
         producto: {
             id: 1,
             empresa: {
