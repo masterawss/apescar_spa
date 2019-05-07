@@ -4,30 +4,22 @@
             .row.justify-center.q-py-lg.bg-landing
                 .col-lg-9.col-12
                     .row.items-center
-                        .col-lg-6.col-12.text-white.q-px-md
+                        .col-lg-8.col-md-8.col-sm-12.text-white.q-px-md
                             h3 Impulsando la industria pesquera en la región de San Martín
                             h5 El mejor lugar para ofertar y comprar tus productos.
                             // q-btn.q-px-md(size="md" label="Ingresar" rounded color="secondary")
-                        .col-lg-6.col-12
-                            q-card.smooth-shadow(unelevate)
-                                q-card-section.q-pa-lg
-                                    span.text-h6.text-center Iniciar sesión
-                                    q-input( v-model="email" label="Correo electrónico")
-                                    q-input( v-model="password" label="Contraseña" type="password")
-                                    q-btn.q-mt-sm.full-width(label="Ingresar" color="secondary" )
-                                    span ¿No eres miembro aún?
-                                    br
-                                    span ¡Regístrate aquí!
+                        .col-lg-4.col-md-4.col-12(v-if="!isAuth")
+                            w-card-login
             .row.justify-center.q-py-md
                 .col-lg-9.col-12
                     strong.text-h6 Últimas ofertas
                     .row
-                        .col-lg-3.col-12(v-for="i in 4")
+                        .col-lg-3.col-md-3.col-12(v-for="i in 4")
                             w-producto-card(:producto="producto")
                     br
                     strong.text-h6 Últimas demandas
                     .row
-                        .col-lg-6.col-12(v-for="i in 2")
+                        .col-lg-6.col-md-6.col-12(v-for="i in 2")
                             w-demanda-card
             .row.bg-grey-1.justify-center
                 .col-lg-9.col-12
@@ -59,12 +51,11 @@
 <script>
 import WProductoCard from '../components/ProductoCard'
 import WDemandaCard from '../components/DemandaCard'
+import WCardLogin from '../components/CardLogin'
 import { QCard, QCardSection, QInput } from 'quasar'
 export default {
-    components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard},
+    components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard, WCardLogin},
     data: () => ({
-        email: '',
-        password: '',
         producto: {
             id: 1,
             empresa: {
@@ -76,6 +67,11 @@ export default {
             precio: '35.00',
             unidad: 'bolsa'
         },
-    })
+    }),
+    computed: {
+        isAuth(){
+            return this.$store.state.auth.info.jwt !== undefined
+        }
+    }
 }
 </script>

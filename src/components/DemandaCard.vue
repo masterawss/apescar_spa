@@ -1,7 +1,7 @@
 <template lang="pug">
     q-card.q-ma-sm.smooth-shadow(unelevate)
         q-card-section
-            q-item(clickable v-ripple)
+            q-item(v-if="isAuth" clickable v-ripple)
                 q-item-section(avatar)
                     q-avatar
                         img(src="https://cdn.quasar-framework.org/img/boy-avatar.png")
@@ -22,9 +22,9 @@
                     q-icon(name="all_inbox")
                     span &nbsp Volumen
 
-
-            q-input(v-model="text" label="Respuesta" autogrow)
-            q-btn.q-mt-sm(label="Enviar" @click="enviarRespuesta" color="secondary")
+            div(v-if="isAuth")
+                q-input(v-model="text" label="Respuesta" autogrow)
+                q-btn.q-mt-sm(label="Enviar" @click="enviarRespuesta" color="secondary")
 </template>
 
 <script>
@@ -41,6 +41,11 @@ export default {
                 color: 'primary',
                 message: 'Enviado correctamente'
             })
+        }
+    },
+    computed: {
+        isAuth(){
+            return this.$store.state.auth.info.jwt !== undefined
         }
     }
 }

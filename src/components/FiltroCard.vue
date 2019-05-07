@@ -28,9 +28,9 @@
 </template>
 
 <script>
-import { QCard, QCardSection, QOptionGroup, QExpansionItem } from 'quasar'
+import { QOptionGroup, QExpansionItem } from 'quasar'
 export default {
-    components: { QCard, QCardSection, QOptionGroup, QExpansionItem },
+    components: { QOptionGroup, QExpansionItem },
     data: () => ({
         especies_option: [],
         categorias_option: [],
@@ -38,94 +38,94 @@ export default {
         {
             id: 1,
             label: 'Tilapia',
-            value: false
+            value: 'Tilapia'
         },
         {
             id: 2,
             label: 'Gamitana',
-            value: false
+            value: 'Gamitana'
         },
         {
             id: 3,
             label: 'Paco',
-            value: false
+            value: 'Paco'
         },
         {
             id: 4,
             label: 'Paiche',
-            value: false
+            value: 'Paiche'
         },
         {
             id: 5,
             label: 'Camarón',
-            value: false
+            value: 'Camarón'
         },
         {
             id: 6,
             label: 'Dorado',
-            value: false
+            value: 'Dorado'
         },
         {
             id: 7,
             label: 'Doncella',
-            value: false
+            value: 'Doncella'
         },
         {
             id: 8,
             label: 'Boquichico',
-            value: false
+            value: 'Boquichico'
         },
         {
             id: 9,
             label: 'Toa',
-            value: false
+            value: 'Toa'
         },
         {
             id: 10,
             label: 'Sábalo',
-            value: false
+            value: 'Sábalo'
         },
         ],
         categorias: [
         {
             id: 1,
             label: 'Hamburguesa',
-            value: false
+            value: 'Hamburguesa'
         },
         {
             id: 2,
             label: 'Filete',
-            value: false
+            value: 'Filete'
         },
         {
             id: 3,
             label: 'Nuggets',
-            value: false
+            value: 'Nuggets'
         },
         {
             id: 4,
             label: 'Ahumado',
-            value: false
+            value: 'Ahumado'
         },
         {
             id: 5,
             label: 'Filete ahumado',
-            value: false
+            value: 'Filete ahumado'
         },
         {
             id: 6,
             label: 'Medallones',
-            value: false
+            value: 'Medallones'
         },
         {
             id: 7,
             label: 'Seco salado',
-            value: false
+            value: 'Seco salado'
         },
         {
             id: 8,
             label: 'Filete seco salado',
-            value: false
+            value: 'Filete seco salado'
         },
         ],
     })

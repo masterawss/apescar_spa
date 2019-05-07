@@ -862,7 +862,7 @@
     babel-plugin-dynamic-import-node "2.2.0"
     core-js "2.6.5"
 
-"@quasar/extras@^1.0.0":
+"@quasar/extras@^1.1.2":
   version "1.1.2"
   resolved "https://registry.yarnpkg.com/@quasar/extras/-/extras-1.1.2.tgz#8b3a5faa52a824ffe53d233b9dffa2de15377f37"
   integrity sha512-gas3jD/ArAtRNwUgvosUNl8ueWZJD4ULd7n6nWrWIH3I+I3A1u3CJbwVlsR1czlY7eawMFXmhJ3KKnx3IbkASg==
@@ -1825,6 +1825,11 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
   dependencies:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
+
+circular-json@^0.5.5:
+  version "0.5.9"
+  resolved "https://registry.yarnpkg.com/circular-json/-/circular-json-0.5.9.tgz#932763ae88f4f7dead7a0d09c8a51a4743a53b1d"
+  integrity sha512-4ivwqHpIFJZBuhN3g/pEcdbnGUywkBblloGbkglyloVjjR3uT6tieI89MVOfbP2tHX5sgb01FuLgAOzebNlJNQ==
 
 class-utils@^0.3.5:
   version "0.3.6"
@@ -4165,6 +4170,11 @@ lodash.memoize@^4.1.2:
   resolved "https://registry.yarnpkg.com/lodash.memoize/-/lodash.memoize-4.1.2.tgz#bcc6c49a42a2840ed997f323eada5ecd182e0bfe"
   integrity sha1-vMbEmkKihA7Zl/Mj6tpezRguC/4=
 
+lodash.merge@^4.6.1:
+  version "4.6.1"
+  resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.1.tgz#adc25d9cb99b9391c59624f379fbba60d7111d54"
+  integrity sha512-AOYza4+Hf5z1/0Hztxpm2/xiPZgi/cjMqdnKTUWTBSKchJlxXXuUSxCCl8rJlf4g6yww/j6mA8nC8Hw/EZWxKQ==
+
 lodash.snakecase@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/lodash.snakecase/-/lodash.snakecase-4.1.1.tgz#39d714a35357147837aefd64b5dcbb16becd8f8d"
@@ -5687,7 +5697,7 @@ qs@6.5.2:
   resolved "https://registry.yarnpkg.com/qs/-/qs-6.5.2.tgz#cb3ae806e8740444584ef154ce8ee98d403f3e36"
   integrity sha512-N5ZAX4/LxJmF+7wN74pUD6qAh9/wnvdQcjq9TZjevvXzSUo7bfmw91saqMjzGS2xq91/odN2dW/WOl7qQHNDGA==
 
-quasar@^1.0.0-beta.0:
+quasar@^1.0.0-beta.21:
   version "1.0.0-beta.21"
   resolved "https://registry.yarnpkg.com/quasar/-/quasar-1.0.0-beta.21.tgz#3db10d9a1b4797ea40dd3281cfc69747f15d7d0e"
   integrity sha512-0gg8vjEyCeEgv0muj3m5uf1oxFQeTFfHBCqXdDcpUMKSo5Xnt0PmHpJJbfeWGflyH3Yunb3HXUyiJuO352fctQ==
@@ -7008,6 +7018,14 @@ vue@2.6.10:
   version "2.6.10"
   resolved "https://registry.yarnpkg.com/vue/-/vue-2.6.10.tgz#a72b1a42a4d82a721ea438d1b6bf55e66195c637"
   integrity sha512-ImThpeNU9HbdZL3utgMCq0oiMzAkt1mcgy3/E6zWC/G6AaQoeuFdsl9nDhTDU3X1R6FK7nsIUuRACVcjI+A2GQ==
+
+vuex-persist@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/vuex-persist/-/vuex-persist-2.0.0.tgz#5f1759e4c969f405bb23416e8c8c8b5c1dca535d"
+  integrity sha512-BG5iOlthnXBCMp1tZpUTc/pvn+81fyEwx+1sYar1ktEZukbGHEsB5yIAydXeoWxUW416oj4/2Qfjrd/noqkoxQ==
+  dependencies:
+    circular-json "^0.5.5"
+    lodash.merge "^4.6.1"
 
 vuex@3.1.0:
   version "3.1.0"

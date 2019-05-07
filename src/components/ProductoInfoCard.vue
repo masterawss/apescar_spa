@@ -24,12 +24,12 @@
                     q-input(v-model="text" label="Descripcion")
                     .row
                         .col-4.q-pr-md
-                            q-input(v-model="text" label="Cantidad")
+                            q-input(v-model="form.cantidad" type="number" label="Cantidad")
                         .col-4.q-pr-md
-                            q-input(v-model="text" label="Unidad")
+                            q-input(v-model="form.unidad" label="Unidad")
                         .col-4
-                            q-input(v-model="text" label="Fecha de entrega")
-                    q-btn.q-my-md.full-width(label="Pedir" color="secondary")
+                            q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
+                    q-btn.q-my-md.full-width(label="Pedir" @click="realizarPedido" color="secondary")
             br
             span.q-pt-lg.text-subtitle1 Más de la empresa
             .row
@@ -61,6 +61,9 @@ export default {
     components: { QCard, QCardSection, QItemSection, QAvatar, QImg, QInput, WProductoCard },
     data: () => ({
         text: '',
+        form: {
+
+        },
         producto_prueba: {
             id: 1,
             empresa: {
@@ -74,5 +77,11 @@ export default {
         },
     }),
     props: ['producto'],
+    methods: {
+        realizarPedido(){
+            console.log(this.form);
+            
+        }
+    }
 }
 </script>
