@@ -4,16 +4,16 @@
             q-item-section(avatar)
                 q-avatar(size="30px")
                     img(:src="producto.empresa.foto" @click="open_producto = true")
-            q-item-section {{ producto.empresa.nombre }}
-        q-card-section
-            q-img(:src="producto.foto" :ratio="16/9" @click="go")
+            q-item-section {{ producto.empresa.razon_social }}
+        q-card-section(v-ripple)
+            q-img(:src="producto.path_imagen" :ratio="16/9" @click="go")
             br
             br
-            span.text-subtitle2 {{ producto.descripcion }}
+            span.text-subtitle2 {{ producto.titulo }}
             br
             div(v-if="isAuth && !hide_precio")
                 strong.text-blue {{ producto.precio }} soles &nbsp
-                span.text-grey / {{producto.unidad}}
+                span.text-grey / {{producto.unidad.descripcion}}
 </template>
 <script>
 import {QDialog, QItem, QItemSection, QAvatar, QImg } from 'quasar'

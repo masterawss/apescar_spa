@@ -5,21 +5,28 @@
         q-btn(flat dense round @click='leftDrawerOpen = !leftDrawerOpen' aria-label='Menu')
           q-icon(name='menu')
         q-toolbar-title
-          q-avatar
+          q-avatar(@click="$router.push({name: 'index'})")
             img(src="/statics/logo2.png")
           | &nbsp apescar
         
         q-btn(flat label="Ofertas" @click="$router.push({name: 'oferta.index'})")
         q-btn(flat label="Demandas" @click="$router.push({name: 'demanda.index'})")
         // q-btn(flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
-        q-btn.q-mx-md(flat round icon="notifications_none")
+        
+        q-btn.q-mx-md(v-if="isAuth" flat round icon="notifications_none")
+        
         .q-mr-lg-xl.q-pr-lg-md
-          // q-btn.q-mr-lg-xl(color="secondary" label="" @click="login = true")
-          q-btn-dropdown( label="Nombre de usuario" flat)
+          q-btn-dropdown( v-if="isAuth" label="Nombre de usuario" flat)
             q-list
               q-item(clickable v-close-popup)
                 q-item-section
-                  q-item-label Nombre de usuario
+                  q-item-label Perfil
+              q-item(clickable v-close-popup)
+                q-item-section
+                  q-item-label Configuración
+              q-item(clickable v-close-popup)
+                q-item-section
+                  q-item-label Salir
           
         // div Quasar v{{ $q.version }}
     // q-drawer.smooth-shadow( v-model='leftDrawerOpen' content-class='smooth-shadow')
@@ -55,6 +62,11 @@ export default {
   },
   methods: {
     openURL
+  },
+  computed: {
+    isAuth(){
+        return this.$store.state.auth.info.jwt !== undefined
+    }
   }
 }
 </script>
