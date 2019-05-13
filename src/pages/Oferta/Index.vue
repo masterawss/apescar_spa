@@ -2,7 +2,7 @@
   q-page
     .bg-primary.q-pa-md.q-gutter-md.row.items-start
       .col-3
-
+        
       .col-9.col-md-8
         q-input(dark dense standout v-model="text"  )
           template(v-slot:append)
@@ -10,14 +10,13 @@
             q-icon(v-else name="clear" class="cursor-pointer" @click="text = ''")
       
     .row.q-mx-lg-xl.q-px-lg-xl
-      .col-2
+      .col-lg-2.col-12
         w-filtro
 
-      .col-10
+      .col-lg-10.col-sm-12
         q-infinite-scroll(@load="onLoadProductos" :offset="250")
-          | {{ oferta }}
           .row
-            .col-lg-3.col-md-4.col-sm-12(v-for="producto in ofertas" :key="producto.id")
+            .col-lg-3.col-md-4.col-6(v-for="producto in ofertas" :key="producto.id")
               w-producto-card(:producto="producto")
 
           template(v-slot:loading)
@@ -50,6 +49,7 @@ export default {
         empresa{
           id,
           razon_social
+          url_imagen
         },
         unidad{
           id,

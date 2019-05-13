@@ -3,7 +3,7 @@
         q-item.q-pt-md(v-if="isAuth" clickable v-ripple dense)
             q-item-section(avatar)
                 q-avatar(size="30px")
-                    img(:src="producto.empresa.foto" @click="open_producto = true")
+                    img(:src="producto.empresa.url_imagen" @click="open_producto = true")
             q-item-section {{ producto.empresa.razon_social }}
         q-card-section(v-ripple)
             q-img(:src="producto.path_imagen" :ratio="16/9" @click="go")

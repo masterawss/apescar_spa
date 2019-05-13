@@ -14,8 +14,8 @@
                 .col-lg-9.col-12
                     strong.text-h6 Últimas ofertas
                     .row
-                        .col-lg-3.col-md-3.col-12(v-for="i in 4")
-                            w-producto-card(:producto="producto")
+                        .col-lg-3.col-md-3.col-6(v-for="oferta in ofertas")
+                            w-producto-card(:producto="oferta")
                     br
                     strong.text-h6 Últimas demandas
                     .row
@@ -24,15 +24,15 @@
             .row.bg-grey-1.justify-center
                 .col-lg-9.col-12
                     .row
-                        .col-4
+                        .col-12-col-lg-4
                             q-card.q-ma-xl.smooth-shadow(unelevate)
                                 q-card-section
                                     | Encuentra tu producto
-                        .col-4
+                        .col-12-col-lg-4
                             q-card.q-ma-xl.smooth-shadow(unelevate)
                                 q-card-section
                                     | Articulación Segura
-                        .col-4
+                        .col-12-col-lg-4
                             q-card.q-ma-xl.smooth-shadow(unelevate)
                                 q-card-section
                                     | Negocia con Seguridad
@@ -53,20 +53,32 @@ import WProductoCard from '../components/ProductoCard'
 import WDemandaCard from '../components/DemandaCard'
 import WCardLogin from '../components/CardLogin'
 import { QCard, QCardSection, QInput } from 'quasar'
+import gql from 'graphql-tag';
 export default {
     components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard, WCardLogin},
+    apollo: {
+        ofertas: gql`{
+            ofertas(count: 4){
+                id
+                    id_especie
+                    titulo
+                    descripcion
+                    path_imagen
+                    precio
+                    empresa{
+                        id
+                        razon_social
+                        url_imagen
+                    }
+                    unidad{
+                        id
+                        descripcion
+                    }
+            }
+        }`
+    },
     data: () => ({
-        producto: {
-            id: 1,
-            empresa: {
-            nombre: 'Culqui SAC',
-            foto: 'https://cdn.quasar-framework.org/img/avatar5.jpg',
-            },
-            foto: 'https://www.thespruceeats.com/thmb/Q5rf13VgpuvFVdQqEuVV1jaIERw=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-163137259-5b7ef8f4c9e77c0024ce934d.jpg',
-            descripcion: 'Nuggets de Tilapia',
-            precio: '35.00',
-            unidad: 'bolsa'
-        },
+        
     }),
     computed: {
         isAuth(){

@@ -4,7 +4,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo';
 
 
-const httpLink = createHttpLink({ uri: 'http://apescar.test/graphql', fetch: fetch })
+const httpLink = createHttpLink({ uri: 'http://192.168.1.6/apescar/public/graphql', fetch: fetch })
 
 // Create the apollo client
 const apolloClient = new ApolloClient({

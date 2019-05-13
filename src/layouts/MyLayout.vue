@@ -1,18 +1,27 @@
 <template lang="pug">
   q-layout(view='hHh Lpr lFf')
     q-header
-      q-toolbar.q-mx-lg-xl.q-px-lg-xl
+      q-toolbar.q-mx-lg-xl.q-px-lg-xl(v-if="$q.screen.lt.sm")
         q-btn(flat dense round @click='leftDrawerOpen = !leftDrawerOpen' aria-label='Menu')
           q-icon(name='menu')
+
         q-toolbar-title
           q-avatar(@click="$router.push({name: 'index'})")
             img(src="/statics/logo2.png")
           | &nbsp apescar
+
+      q-toolbar.q-mx-lg-xl.q-px-lg-xl(v-else)
         
+        q-toolbar-title
+          q-avatar(@click="$router.push({name: 'index'})")
+            img(src="/statics/logo2.png")
+          | &nbsp apescar
+          
         q-btn(flat label="Ofertas" @click="$router.push({name: 'oferta.index'})")
         q-btn(flat label="Demandas" @click="$router.push({name: 'demanda.index'})")
         // q-btn(flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
         
+
         q-btn.q-mx-md(v-if="isAuth" flat round icon="notifications_none")
         
         .q-mr-lg-xl.q-pr-lg-md
@@ -27,17 +36,19 @@
               q-item(clickable v-close-popup)
                 q-item-section
                   q-item-label Salir
+        
           
         // div Quasar v{{ $q.version }}
-    // q-drawer.smooth-shadow( v-model='leftDrawerOpen' content-class='smooth-shadow')
-    //   q-list
-    //     q-item-label(header) Essential Links
-    //     q-item(clickable tag='a' target='_blank' href='http://v1.quasar-framework.org')
-    //       q-item-section(avatar)
-    //         q-icon(name='school')
-    //       q-item-section
-    //         q-item-label Docs
-    //         q-item-label(caption) v1.quasar-framework.org
+     
+    q-drawer.smooth-shadow( v-if="$q.screen.lt.sm" v-model='leftDrawerOpen' content-class='smooth-shadow')
+      q-list
+        q-item-label(header) Essential Links
+        q-item(clickable tag='a' target='_blank' href='http://v1.quasar-framework.org')
+          q-item-section(avatar)
+            q-icon(name='school')
+          q-item-section
+            q-item-label Docs
+            q-item-label(caption) v1.quasar-framework.org
     q-page-container
       q-dialog(
         v-model="login"
