@@ -19,8 +19,8 @@
                     br
                     strong.text-h6 Últimas demandas
                     .row
-                        .col-lg-6.col-md-6.col-12(v-for="i in 2")
-                            w-demanda-card
+                        .col-lg-6.col-md-6.col-12(v-for="demanda in demandas")
+                            w-demanda-card(:demanda="demanda")
             .row.bg-grey-1.justify-center
                 .col-lg-9.col-12
                     .row
@@ -60,20 +60,48 @@ export default {
         ofertas: gql`{
             ofertas(count: 4){
                 id
-                    id_especie
-                    titulo
+                id_especie
+                titulo
+                descripcion
+                path_imagen
+                precio
+                empresa{
+                    id
+                    razon_social
+                    url_imagen
+                }
+                unidad{
+                    id
                     descripcion
-                    path_imagen
-                    precio
-                    empresa{
-                        id
-                        razon_social
-                        url_imagen
-                    }
-                    unidad{
-                        id
-                        descripcion
-                    }
+                }
+            }
+        }`,
+        demandas: gql`{
+            demandas(count: 2){
+                id
+                titulo
+                descripcion
+                fecha
+                created_at
+                cantidad
+                is_disponible
+                empresa{
+                    id
+                    url_imagen
+                    razon_social
+                }
+                unidad{
+                    id
+                    descripcion
+                }
+                especie{
+                    id
+                    descripcion
+                }
+                categoria{
+                    id
+                    descripcion
+                }
             }
         }`
     },

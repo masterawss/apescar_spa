@@ -9,6 +9,8 @@ const routes = [
       { path: '/ofertas', component: () => import('pages/Oferta/Index.vue'), name: 'oferta.index', meta: { requiresAuth: true } },
       { path: '/oferta/:id', component: () => import('pages/Oferta/Show.vue'), name: 'oferta.show', meta: { requiresAuth: true } },
       { path: '/demandas', component: () => import('pages/Demanda/Index.vue'), name: 'demanda.index', meta: { requiresAuth: true } },
+
+      { path: '/empresa/:id', component: () => import('pages/Empresa/Show.vue'), name: 'empresa.show', meta: { requiresAuth: true } },
     ]
   }
 ]

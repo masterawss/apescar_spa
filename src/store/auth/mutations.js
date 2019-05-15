@@ -6,3 +6,7 @@ export const login = (state, auth) => {
 export function someMutation (state) {
 }
 */
+
+export const logout = (state) => {
+    state.info = []
+}

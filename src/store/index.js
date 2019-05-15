@@ -5,6 +5,7 @@ import {vuexPersist} from '../boot/VuexPersist.js'
 // import example from './module-example'
 
 import auth from './auth'
+import filtro_oferta from './filtro_oferta'
 
 Vue.use(Vuex)
 
@@ -17,7 +18,8 @@ export default function (/* { ssrContext } */) {
   const Store = new Vuex.Store({
     modules: {
       // example
-      auth
+      auth,
+      filtro_oferta
     },
     plugins: [vuexPersist.plugin],
 

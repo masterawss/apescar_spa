@@ -1,6 +1,6 @@
 <template lang="pug">
     q-card.q-ma-sm.smooth-shadow(unelevated)
-        q-item.q-pt-md(v-if="isAuth" clickable v-ripple dense)
+        q-item.q-pt-md(v-if="isAuth && !hide_empresa" clickable v-ripple dense @click="$router.push({name: 'empresa.show', params: { id: producto.empresa.id } })")
             q-item-section(avatar)
                 q-avatar(size="30px")
                     img(:src="producto.empresa.url_imagen" @click="open_producto = true")
@@ -18,7 +18,7 @@
 <script>
 import {QDialog, QItem, QItemSection, QAvatar, QImg } from 'quasar'
 export default {
-    props: ['producto', 'hide_precio'],
+    props: ['producto', 'hide_precio', 'hide_empresa'],
     components: {QDialog, QItem, QItemSection, QAvatar, QImg },
     data: () => ({
         open_producto: false,

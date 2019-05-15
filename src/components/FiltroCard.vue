@@ -1,5 +1,5 @@
 <template lang="pug">
-    q-card.smooth-shadow.card-filter( unelevated)
+    q-card.smooth-shadow.card-filter( :class=" { 'margin-t': !$q.screen.lt.sm } " unelevated)
           q-card-section
             strong Filtrar por
             q-expansion-item(
@@ -16,6 +16,7 @@
 
             q-expansion-item(
               expand-separator
+              :default-opened="!$q.screen.lt.sm"
               label="Categorias")
               q-card
                 q-card-section
@@ -48,9 +49,31 @@ export default {
             }
         `
     },
-    data: () => ({
-        especies_option: [],
-        categorias_option: [],
-    })
+    computed: {
+        especies_option: {
+            get () {
+                return this.$store.state.filtro_oferta.especies
+            },
+            set (val) {
+                console.log('asdasd');
+                this.$store.commit('filtro_oferta/updateEspecies', val)
+            }
+        },
+        categorias_option: {
+            get () {
+                return this.$store.state.filtro_oferta.categorias
+            },
+            set (val) {
+                this.$store.commit('filtro_oferta/updateCategorias', val)
+            }
+        },
+
+    }
 }
 </script>
+
+<style scoped>
+    .margin-t{
+        margin-top: -60px;
+    }
+</style>

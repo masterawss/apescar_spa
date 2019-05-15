@@ -1,28 +1,27 @@
 <template lang="pug">
-    q-card.q-ma-sm.smooth-shadow(unelevate)
+    q-card.q-ma-sm.smooth-shadow(unelevate :class="{ 'bg-grey-2': !demanda.is_disponible }" )
         q-card-section
-            q-item(v-if="isAuth" clickable v-ripple)
+            q-item(v-if="isAuth && !hide_empresa" clickable v-ripple @click="$router.push({name: 'empresa.show', params: { id: demanda.empresa.id } })")
                 q-item-section(avatar)
                     q-avatar
-                        img(src="https://cdn.quasar-framework.org/img/boy-avatar.png")
-                q-item-section Nombre de la empresa 
+                        img(:src="demanda.url_imagen")
+                q-item-section {{ demanda.empresa.razon_social }}
 
                 q-item-section(side top)
-                    q-item-label(caption) Hace 5 horas
+                    q-item-label(caption) {{ demanda.created_at }}
 
-            strong Titulo de la publicacion de demanda
-            p
-                | ada sda sdasd asd asdasd asd asdasda sd sdfsdfgs dfgdfg dfg dfg sdfg dfg sdfg sdfg fd 
+            strong {{ demanda.titulo }}
+            p {{ demanda.descripcion }}
             
             .row.text-grey
                 .col-6
                     q-icon(name="date_range")
-                    span &nbsp Fecha de entrega
+                    span &nbsp {{ demanda.fecha }}
                 .col-6
                     q-icon(name="all_inbox")
-                    span &nbsp Volumen
+                    span &nbsp {{ demanda.cantidad }}  {{ demanda.unidad.descripcion }}
 
-            div(v-if="isAuth")
+            div(v-if="isAuth && demanda.is_disponible")
                 q-input(v-model="text" label="Respuesta" autogrow)
                 q-btn.q-mt-sm(label="Enviar" @click="enviarRespuesta" color="secondary")
 </template>
@@ -32,6 +31,7 @@
 import { QCard, QCardSection, QItemSection, QAvatar, QInput } from 'quasar'
 export default {
     components: { QCard, QCardSection, QItemSection, QAvatar, QInput },
+    props: ['demanda', 'hide_empresa'],
     data: () => ({
         text: ''
     }),

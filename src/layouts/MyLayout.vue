@@ -33,7 +33,7 @@
               q-item(clickable v-close-popup)
                 q-item-section
                   q-item-label Configuración
-              q-item(clickable v-close-popup)
+              q-item(clickable v-close-popup @click="logout")
                 q-item-section
                   q-item-label Salir
         
@@ -72,7 +72,11 @@ export default {
     }
   },
   methods: {
-    openURL
+    openURL,
+    logout () {
+      this.$store.commit('auth/logout')
+      this.$router.push({name: 'index'})
+    }
   },
   computed: {
     isAuth(){

@@ -54,7 +54,7 @@ export default {
             }`,
             variables(){
                 return{
-                    id: this.id
+                    id: parseInt(this.$route.params.id)
                 }
             }
         },

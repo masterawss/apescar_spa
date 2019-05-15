@@ -1,7 +1,7 @@
 <template lang="pug">
     q-card
         q-card-section
-            q-item(clickable v-ripple v-if="producto")
+            q-item(clickable v-ripple v-if="producto" @click="$router.push({ name: 'empresa.show', params: { id: producto.empresa.id } })")
                 q-item-section(avatar)
                     q-avatar
                         img(:src="producto.empresa.url_imagen")
