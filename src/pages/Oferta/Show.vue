@@ -3,7 +3,10 @@
         .doc-container
             .row.justify-center
                 .col-lg-9.col-12
-                    w-producto-info(:producto="publicacion")
+                    .flex.flex-center.q-py-lg(v-if="$apollo.queries.publicacion.loading")
+                        q-spinner-ball(size="5em" color="primary")
+                    div(v-else)
+                        w-producto-info(:producto="publicacion")
                     br
                     h5 Tambien te puede interesar
                     .row
@@ -20,7 +23,7 @@
 </style>
 
 <script>
-import { QCard, QCardSection } from 'quasar'
+import { QSpinnerBall } from 'quasar'
 
 import gql from 'graphql-tag'
 
@@ -80,7 +83,7 @@ export default {
         }
         
     },
-    components: { QCard, QCardSection, WProductoInfo, WProductoCard},
+    components: { WProductoInfo, WProductoCard, QSpinnerBall},
     data: () => ({
         id: null,
         mensaje: 'Hola Anthony Will Solsol Soplin, poke eres feito?'

@@ -110,7 +110,7 @@ export default {
     }),
     computed: {
         isAuth(){
-            return this.$store.state.auth.info.jwt !== undefined
+            return this.$store.state.auth.is_auth
         }
     }
 }

@@ -1,3 +1,5 @@
 export default {
-  info: {}
+  info: {},
+  is_auth: false,
+  token: null
 }

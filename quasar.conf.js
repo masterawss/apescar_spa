@@ -73,6 +73,20 @@ module.exports = function (ctx) {
           test: /\.pug$/,
           loader: 'pug-plain-loader'
         })
+      },
+      chainWebpack: config => {
+        config.module
+          .rule('vue')
+          .use('vue-loader')
+            .loader('vue-loader')
+            .tap(options => {
+              options.transpileOptions = {
+                transforms: {
+                  dangerousTaggedTemplateString: true,
+                },
+              }
+              return options
+            })
       }
     },
 

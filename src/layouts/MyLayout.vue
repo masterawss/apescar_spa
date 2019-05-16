@@ -25,7 +25,7 @@
         q-btn.q-mx-md(v-if="isAuth" flat round icon="notifications_none")
         
         .q-mr-lg-xl.q-pr-lg-md
-          q-btn-dropdown( v-if="isAuth" label="Nombre de usuario" flat)
+          q-btn-dropdown( v-if="isAuth" :label="user.nombre" flat)
             q-list
               q-item(clickable v-close-popup)
                 q-item-section
@@ -80,7 +80,10 @@ export default {
   },
   computed: {
     isAuth(){
-        return this.$store.state.auth.info.jwt !== undefined
+        return this.$store.state.auth.is_auth
+    },
+    user(){
+      return this.$store.state.auth.info.user
     }
   }
 }

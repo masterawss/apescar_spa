@@ -2,16 +2,36 @@ import { ApolloClient } from 'apollo-client'
 import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo';
+import { ApolloLink } from 'apollo-link'
 
+import store from '../store'
 
 const httpLink = createHttpLink({ uri: 'http://192.168.1.6/apescar/public/graphql', fetch: fetch })
 
+
+const authMiddleware = new ApolloLink((operation, forward) => {
+  // add the authorization to the headers
+  // console.log(store().state.auth.info.length > 0);
+  
+  // const token = store().state.auth.info.length > 0 ? store().state.auth.token : false
+
+  const token = store().state.auth.token
+
+  
+  operation.setContext({
+    headers: {
+      authorization: token ? `Bearer ${token}` : null 
+    }
+  })
+  return forward(operation)
+})
+
+
 // Create the apollo client
-const apolloClient = new ApolloClient({
-  link: httpLink,
+export const apolloClient = new ApolloClient({
+  link: authMiddleware.concat(httpLink),
   cache: new InMemoryCache(),
   connectToDevTools: true,
-  
 })
 
 export const apolloProvider = new VueApollo({

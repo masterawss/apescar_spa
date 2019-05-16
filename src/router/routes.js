@@ -11,6 +11,8 @@ const routes = [
       { path: '/demandas', component: () => import('pages/Demanda/Index.vue'), name: 'demanda.index', meta: { requiresAuth: true } },
 
       { path: '/empresa/:id', component: () => import('pages/Empresa/Show.vue'), name: 'empresa.show', meta: { requiresAuth: true } },
+
+      { path: '/register', component: () => import('pages/Register/Index.vue'), name: 'register' }
     ]
   }
 ]

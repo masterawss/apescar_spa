@@ -8,11 +8,15 @@
               label="Especies")
               q-card
                 q-card-section
-                    q-option-group(
-                    v-model="especies_option"
-                    :options="especies"
-                    color="secondary"
-                    type="checkbox")
+                    div(v-if="$apollo.queries.especies.loading") Cargando ...
+                    div(v-else-if="$apollo.queries.especies.error" class="error apollo")
+                        | An error occured
+                    div(v-else class="result apollo")
+                        q-option-group(
+                        v-model="especies_option"
+                        :options="especies"
+                        color="secondary"
+                        type="checkbox")
 
             q-expansion-item(
               expand-separator
@@ -20,7 +24,11 @@
               label="Categorias")
               q-card
                 q-card-section
-                    q-option-group(
+                    div(v-if="$apollo.queries.especies.loading") Cargando ...
+                    div(v-else-if="$apollo.queries.especies.error" class="error apollo")
+                        | An error occured
+                    div(v-else class="result apollo")
+                        q-option-group(
                         v-model="categorias_option"
                         :options="categorias"
                         color="secondary"
