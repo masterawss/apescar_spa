@@ -6,7 +6,7 @@ import { ApolloLink } from 'apollo-link'
 
 import store from '../store'
 
-const httpLink = createHttpLink({ uri: 'http://192.168.1.6/apescar/public/graphql', fetch: fetch })
+const httpLink = createHttpLink({ uri: 'http://192.168.1.18/apescar/public/graphql', fetch: fetch })
 
 
 const authMiddleware = new ApolloLink((operation, forward) => {
