@@ -15,6 +15,10 @@
       .col-lg-10.col-sm-12
         q-infinite-scroll(@load="onLoadProductos" :offset="250" @stop="completed")
           .row
+            .col-12.flex.flex-center.q-py-xl(v-if="$apollo.queries.ofertas.loading")
+                q-spinner-ball(size="5em" color="primary")
+            .col-12.flex.flex-center.q-py-lg(v-else-if="$apollo.queries.ofertas.error" class="error apollo")
+                | A ocurrido un error
             .col-lg-3.col-md-4.col-6(v-for="producto in ofertas" :key="producto.id")
               w-producto-card(:producto="producto")
 
@@ -30,13 +34,13 @@
 import WFiltro from '../../components/FiltroCard'
 import WProductoCard from '../../components/ProductoCard'
 import WProductoInfoCard from '../../components/ProductoInfoCard'
-import {QCard, QCardSection,QInput, QInfiniteScroll, QSpinnerDots, QDialog} from 'quasar'
+import {QCard, QCardSection,QInput, QInfiniteScroll, QSpinnerDots, QDialog, QSpinnerBall} from 'quasar'
 
 import gql from 'graphql-tag'
 
 export default {
   name: 'PageIndex',
-  components: {WFiltro,WProductoCard,WProductoInfoCard, QInput, QInfiniteScroll, QSpinnerDots, QDialog},
+  components: {WFiltro,WProductoCard,WProductoInfoCard, QInput, QInfiniteScroll, QSpinnerDots, QDialog, QSpinnerBall},
   apollo: {
     ofertas: {
       query(){

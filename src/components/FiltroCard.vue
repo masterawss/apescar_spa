@@ -8,9 +8,10 @@
               label="Especies")
               q-card
                 q-card-section
-                    div(v-if="$apollo.queries.especies.loading") Cargando ...
+                    .flex.flex-center(v-if="$apollo.queries.especies.loading")
+                        q-spinner-puff(color="primary" size="3em")
                     div(v-else-if="$apollo.queries.especies.error" class="error apollo")
-                        | An error occured
+                        | A ocurrido un error
                     div(v-else class="result apollo")
                         q-option-group(
                         v-model="especies_option"
@@ -24,9 +25,10 @@
               label="Categorias")
               q-card
                 q-card-section
-                    div(v-if="$apollo.queries.especies.loading") Cargando ...
+                    .flex.flex-center(v-if="$apollo.queries.especies.loading")
+                        q-spinner-puff(color="primary" size="3em")
                     div(v-else-if="$apollo.queries.especies.error" class="error apollo")
-                        | An error occured
+                        | A ocurrido un error
                     div(v-else class="result apollo")
                         q-option-group(
                         v-model="categorias_option"
@@ -36,10 +38,10 @@
 </template>
 
 <script>
-import { QOptionGroup, QExpansionItem } from 'quasar'
+import { QOptionGroup, QExpansionItem, QSpinnerPuff } from 'quasar'
 import gql from 'graphql-tag';
 export default {
-    components: { QOptionGroup, QExpansionItem },
+    components: { QOptionGroup, QExpansionItem, QSpinnerPuff },
     apollo:{
         especies: gql`{
             especies{

@@ -4,7 +4,7 @@
             .col-lg-6.col-md-8.col-sm-12.col-xs-12
                 img.fixed-bottom-right(src="../../statics/bg-ecommerce-1.jpg" height="400px")
                 q-card.smooth-shadow(style="background: rgba(255,255,255,0.85)")
-                    q-card-section.q-px-xl.q-mx-xl.transparent()
+                    q-card-section.q-px-lg-xl.q-mx-lg-xl.transparent()
                         h4.text-center Nueva cuenta
                         .text-h6.text-center Obten 3 meses de acceso gratuito.
                             q-form(ref="formNuevo" @submit="crear")
@@ -132,8 +132,19 @@ export default {
                         crearCuenta(
                             usuario: $UsuarioNuevo,
                             empresa: $EmpresaNuevo){
-                                usuario
-                                empresa
+                                auth_token{
+                                    token_type
+                                    access_token
+                                }
+                                user{
+                                    id
+                                    email
+                                    nombre
+                                }
+                                empresa{
+                                    id
+                                    razon_social
+                                }
                         }
                     }`,
                     variables: {

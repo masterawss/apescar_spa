@@ -14,11 +14,20 @@
                 .col-lg-9.col-12
                     strong.text-h6 Últimas ofertas
                     .row
-                        .col-lg-3.col-md-3.col-6(v-for="oferta in ofertas")
+                        .col-12.flex.flex-center(v-if="$apollo.queries.ofertas.loading")
+                            q-spinner-ball(size="5em" color="primary")
+                        div(v-else-if="$apollo.queries.ofertas.error" class="error apollo")
+                            | A ocurrido un error
+                        .col-lg-3.col-md-3.col-6( v-else v-for="oferta in ofertas")
                             w-producto-card(:producto="oferta")
                     br
                     strong.text-h6 Últimas demandas
                     .row
+                        .col-12.flex.flex-center(v-if="$apollo.queries.demandas.loading")
+                            q-spinner-ball(size="5em" color="primary")
+                        div(v-else-if="$apollo.queries.demandas.error" class="error apollo")
+                            | A ocurrido un error
+                        div(v-else class="result apollo")
                         .col-lg-6.col-md-6.col-12(v-for="demanda in demandas")
                             w-demanda-card(:demanda="demanda")
             .row.bg-grey-1.justify-center
@@ -52,10 +61,10 @@
 import WProductoCard from '../components/ProductoCard'
 import WDemandaCard from '../components/DemandaCard'
 import WCardLogin from '../components/CardLogin'
-import { QCard, QCardSection, QInput } from 'quasar'
+import { QCard, QCardSection, QInput, QSpinnerBall } from 'quasar'
 import gql from 'graphql-tag';
 export default {
-    components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard, WCardLogin},
+    components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard, WCardLogin, QSpinnerBall},
     apollo: {
         ofertas: gql`{
             ofertas(count: 4){

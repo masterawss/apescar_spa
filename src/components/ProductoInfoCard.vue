@@ -21,7 +21,7 @@
                     br
                     br
                     strong Realizar pedido
-                    q-input(v-model="text" label="Descripcion")
+                    q-input(v-model="form.descripcion" label="Descripcion")
                     .row
                         .col-lg-4.col-12.q-pr-md
                             q-input(v-model="form.cantidad" type="number" label="Cantidad")

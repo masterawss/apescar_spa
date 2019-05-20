@@ -26,6 +26,8 @@ export default async ({ router /* app, router, Vue, ... */ }) => {
           console.log('peticion de login desde servidor: ', res);
           return next()
         }else{
+          console.log('Cerrando sesión');
+          
           store().commit('auth/logout')
           return router.push({ name: 'index' });
         }

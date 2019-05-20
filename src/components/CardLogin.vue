@@ -35,6 +35,10 @@ export default {
                             email
                             nombre
                         }
+                        empresa{
+                            id
+                            razon_social
+                        }
                     }
                 }`,
                 variables: {
