@@ -6,30 +6,40 @@ import { ApolloLink } from 'apollo-link'
 
 import store from '../store'
 
-const httpLink = createHttpLink({ uri: 'http://192.168.1.33/apescar/public/graphql', fetch: fetch })
+import { createUploadLink } from 'apollo-upload-client'
+
+// const httpLink = createHttpLink({ uri: 'http://192.168.43.29/apescar/public/graphql', fetch: fetch })
 
 
-const authMiddleware = new ApolloLink((operation, forward) => {
-  // add the authorization to the headers
-  // console.log(store().state.auth.info.length > 0);
+// const authMiddleware = new ApolloLink((operation, forward) => {
+//   // add the authorization to the headers
+//   // console.log(store().state.auth.info.length > 0);
   
-  // const token = store().state.auth.info.length > 0 ? store().state.auth.token : false
+//   // const token = store().state.auth.info.length > 0 ? store().state.auth.token : false
 
-  const token = store().state.auth.token
+//   const token = store().state.auth.token
 
   
-  operation.setContext({
-    headers: {
-      authorization: token ? `Bearer ${token}` : null 
-    }
-  })
-  return forward(operation)
+//   operation.setContext({
+//     headers: {
+//       authorization: token ? `Bearer ${token}` : null 
+//     }
+//   })
+//   return forward(operation)
+// })
+
+const uri = "http://192.168.43.29/apescar/public/graphql"
+const token = store().state.auth.token
+const httpLink = createUploadLink({uri, 
+  headers: {
+    authorization: token ? `Bearer ${token}` : null 
+  }
+
 })
-
 
 // Create the apollo client
 export const apolloClient = new ApolloClient({
-  link: authMiddleware.concat(httpLink),
+  link: httpLink,
   cache: new InMemoryCache(),
   connectToDevTools: true,
 })
