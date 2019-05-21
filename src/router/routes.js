@@ -10,6 +10,7 @@ const routes = [
       { path: '/oferta/:id', component: () => import('pages/Oferta/Show.vue'), name: 'oferta.show', meta: { requiresAuth: true } },
       { path: '/crear-oferta', component: () => import('pages/Oferta/Create.vue'), name: 'oferta.create', meta: { requiresAuth: true } },
       { path: '/demandas', component: () => import('pages/Demanda/Index.vue'), name: 'demanda.index', meta: { requiresAuth: true } },
+      { path: '/crear-demanda', component: () => import('pages/Demanda/Create.vue'), name: 'demanda.create', meta: { requiresAuth: true } },
 
       { path: '/empresa/:id', component: () => import('pages/Empresa/Show.vue'), name: 'empresa.show', meta: { requiresAuth: true } },
 

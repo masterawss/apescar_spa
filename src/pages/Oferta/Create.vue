@@ -9,17 +9,30 @@
                                 .row
                                     .col-lg-6.col-sm-12.col-xs-12.col-md-6
                                         .flex.flex-center
-                                            q-uploader(
-                                                @added="setImage"
-                                                url="http://localhost:4444/upload"
-                                                color="teal"
-                                                flat
-                                                v-model="form.img"
-                                                label="Inserte una imagen"
-                                                accept=".jpg, image/*"
-                                                hide-upload-btn
-                                                bordered)
-                                            vue-dropzone( @vdropzone-file-added="addImg" ref="myVueDropzone" id="dropzone" :options="dropzoneOptions")
+                                            .row
+                                                .col-12
+                                                    q-uploader.q-mb-md(
+                                                        @added="setImage"
+                                                        url="http://localhost:4444/upload"
+                                                        color="teal"
+                                                        flat
+                                                        v-model="form.img"
+                                                        label="Inserte una imagen referencial del producto."
+                                                        accept=".jpg, image/*"
+                                                        hide-upload-btn
+                                                        bordered)
+
+                                                    .col-12
+                                                        q-uploader(
+                                                            @added="setEspecificacion_tecnica"
+                                                            url="http://localhost:4444/upload"
+                                                            color="secondary"
+                                                            flat
+                                                            v-model="form.especificacion_tecnica"
+                                                            label="Inserte el documento de especificaciones técnicas"
+                                                            hide-upload-btn
+                                                            bordered)
+                                            //- vue-dropzone( @vdropzone-file-added="addImg" ref="myVueDropzone" id="dropzone" :options="dropzoneOptions")
                                             //- input(type="file" v-model="form.img" )
                                     .col-lg-6.col-sm-12.col-xs-12.col-md-6
                                         .row
@@ -39,8 +52,6 @@
 
 <script>
 import { QUploader, QForm } from 'quasar'
-import vue2Dropzone from 'vue2-dropzone'
-import 'vue2-dropzone/dist/vue2Dropzone.min.css'
 
 import gql from 'graphql-tag';
 
@@ -49,7 +60,6 @@ export default {
     components: {
         QUploader,
         QForm,
-        vueDropzone: vue2Dropzone
     },
     apollo: {
         unidades: gql`query{
@@ -79,13 +89,8 @@ export default {
             precio: 0,
             img: null,
             especie: null,
-            categoria: null
-        },
-        dropzoneOptions: {
-            url: 'https://httpbin.org/post',
-            thumbnailWidth: 150,
-            maxFilesize: 0.5,
-            // headers: { "My-Awesome-Header": "header value" }
+            categoria: null,
+            especificacion_tecnica: null
         }
     }),
     methods: {
@@ -101,16 +106,14 @@ export default {
             console.log(typeof this.form.img);
             console.log(this.form.img);
         },
-        addImg(file){
-            console.log(typeof file);
-            console.log(file);
-            
-            
+        setEspecificacion_tecnica(file){
+            this.form.especificacion_tecnica = file[0];
         },
          crear(){
              this.$apollo.mutate({
                  mutation: gql`mutation crearOferta(
                     $imagen: Upload,
+                    $especificacion_tecnica: Upload,
                     $titulo: String!,
                     $descripcion: String!,
                     $precio: Float!,
@@ -120,6 +123,7 @@ export default {
                  ){
                      crearOferta(
                         imagen: $imagen,
+                        especificacion_tecnica: $especificacion_tecnica
                         titulo: $titulo,
                         descripcion: $descripcion,
                         precio: $precio,
@@ -127,7 +131,7 @@ export default {
                         id_especie: $id_especie,
                         id_categoria: $id_categoria
                      ){
-                         valor
+                        id
                      }
                  }
                  `,
@@ -138,7 +142,8 @@ export default {
                     precio: this.form.precio,
                     id_unidad: this.form.unidad.id,
                     id_especie: this.form.especie.id,
-                    id_categoria: this.form.categoria.id
+                    id_categoria: this.form.categoria.id,
+                    especificacion_tecnica: this.form.especificacion_tecnica
                     
                  }
              }).then(data => {
