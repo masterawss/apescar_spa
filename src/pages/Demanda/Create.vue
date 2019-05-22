@@ -16,9 +16,9 @@
                                 q-input(label="Descripcion" v-model="form.descripcion" )
                                 q-input(label="Fecha esperada" v-model="form.fecha" type="date")
                                 .row
-                                    .col-xs-12.col-lg-6
+                                    .col-6
                                         q-input(label="Volumen" v-model="form.volumen")
-                                    .col-xs-12.col-lg-6.q-pl-md
+                                    .col-6.q-pl-md
                                         q-select(label="Seleccione una unidad" v-model="form.unidad" :options="unidades" option-label="descripcion" option-value="id")
 
                                 q-btn.q-mt-md(label="Crear" color="secondary" type="submit")
@@ -53,7 +53,7 @@ export default {
         form:{
             titulo: null,
             descripcion: null,
-            fecha: new Date(),
+            fecha: new Date().toISOString().slice(0,10),
             volumen: 0,
             unidad: null,
             especie: null,
@@ -62,7 +62,51 @@ export default {
     }),
     methods: {
         crear(){
-
+            this.$apollo.mutate({
+                mutation: gql`mutation crearDemanda(
+                    $titulo: String!,
+                    $descripcion: String!,
+                    $volumen: Float!,
+                    $fecha: Date,
+                    $id_unidad: Int,
+                    $id_especie: Int,
+                    $id_categoria: Int,
+                ){
+                    crearDemanda(
+                        titulo: $titulo,
+                        descripcion: $descripcion,
+                        volumen: $volumen,
+                        fecha: $fecha,
+                        id_unidad: $id_unidad,
+                        id_especie: $id_especie,
+                        id_categoria: $id_categoria
+                    ){
+                        id
+                    }
+                }`,
+                variables: {
+                    titulo: this.form.titulo,
+                    descripcion: this.form.descripcion,
+                    volumen: this.form.volumen,
+                    fecha: this.form.fecha,
+                    id_unidad: this.form.unidad !== null ? this.form.unidad.id  : null,
+                    id_especie: this.form.especie !== null ? this.form.especie.id  : null,
+                    id_categoria: this.form.categoria !== null ? this.form.categoria.id : null 
+                }
+            }).then(data => {
+                //  if(data.data.crearDemanda.id == null) throw 'Error obteniendo'
+                this.$q.notify({
+                    color: 'green',
+                    message: 'Demanda creada correctamente.'
+                })
+                this.$router.go(-1)
+                 
+             }).catch(e => {
+                this.$q.notify({
+                    color: 'red',
+                    message: 'Ha ocurrido un error, compruebe su conexión de internet   .'
+                })
+             })
         }
     }
 }

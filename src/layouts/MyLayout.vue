@@ -2,7 +2,7 @@
   q-layout(view='hHh Lpr lFf')
     q-header
       q-toolbar.q-mx-lg-xl.q-px-lg-xl(v-if="$q.screen.lt.sm")
-        q-btn(flat dense round @click='leftDrawerOpen = !leftDrawerOpen' aria-label='Menu')
+        q-btn(v-if="isAuth" flat dense round @click='leftDrawerOpen = !leftDrawerOpen' aria-label='Menu')
           q-icon(name='menu')
 
         q-toolbar-title
@@ -40,15 +40,41 @@
           
         // div Quasar v{{ $q.version }}
      
-    q-drawer.smooth-shadow( v-if="$q.screen.lt.sm" v-model='leftDrawerOpen' content-class='smooth-shadow')
+    q-drawer.smooth-shadow( v-if="$q.screen.lt.sm && isAuth"  v-model='leftDrawerOpen' content-class='smooth-shadow')
       q-list
-        q-item-label(header) Essential Links
-        q-item(clickable tag='a' target='_blank' href='http://v1.quasar-framework.org')
+        q-item-label(header) Menú
+        q-item(clickable @click="$router.push({name: 'index' })")
           q-item-section(avatar)
-            q-icon(name='school')
+            q-icon(name='home')
           q-item-section
-            q-item-label Docs
-            q-item-label(caption) v1.quasar-framework.org
+            q-item-label Inicio
+        q-item(clickable @click="$router.push({name: 'oferta.index' })")
+          q-item-section(avatar)
+            q-icon(name='shopping_cart')
+          q-item-section
+            q-item-label Ofertas
+        q-item(clickable @click="$router.push({name: 'demanda.index' })")
+          q-item-section(avatar)
+            q-icon(name='shopping_basket')
+          q-item-section
+            q-item-label Demandas
+
+        q-item.q-mt-lg(clickable @click="$router.push({name: 'empresa.show', params: { id: empresa.id } })")
+          q-item-section(avatar)
+            q-icon(name='account_circle')
+          q-item-section
+            q-item-label Perfil
+        q-item(clickable @click="$router.push({name: 'empresa.show', params: { id: empresa.id } })")
+          q-item-section(avatar)
+            q-icon(name='settings')
+          q-item-section
+            q-item-label Configuración
+
+        q-item.q-mt-lg(clickable @click="logout")
+          q-item-section(avatar)
+            q-icon(name='exit_to_app')
+          q-item-section
+            q-item-label Cerrar sesión
     q-page-container
       q-dialog(
         v-model="login"

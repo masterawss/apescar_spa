@@ -29,7 +29,7 @@ import { createUploadLink } from 'apollo-upload-client'
 // })
 
 const uri = "http://192.168.1.19/apescar/public/graphql"
-const token = store().state.auth.token
+var token = store().state.auth.token
 const httpLink = createUploadLink({uri, 
   headers: {
     authorization: token ? `Bearer ${token}` : null 

@@ -16,7 +16,7 @@ const routes = [
 
       { path: '/register', component: () => import('pages/Register/Index.vue'), name: 'register' },
 
-      { path: '/empresa/perfil', component: () => import('pages/Perfil/Index.vue'), name: 'perfil.index' }
+      // { path: '/empresa/perfil', component: () => import('pages/Perfil/Index.vue'), name: 'perfil.index' }
     ]
   }
 ]

@@ -147,11 +147,18 @@ export default {
                     
                  }
              }).then(data => {
-                 console.log('Dato obtenido', data);
+                //  if(data.data.crearDemanda.id == null) throw 'Error obteniendo'
+                this.$q.notify({
+                    color: 'green',
+                    message: 'Oferta creada correctamente.'
+                })
+                this.$router.go(-1)
                  
              }).catch(e => {
-                 console.log('Error', e);
-                 
+                this.$q.notify({
+                    color: 'red',
+                    message: 'Ha ocurrido un error, compruebe su conexión de internet   .'
+                })
              })
          }
     }

@@ -17,7 +17,7 @@
                     span.text-grey / {{ producto.unidad.descripcion }}
                     br
                     br
-                    q-btn(label="Descargar ficha técnica" icon="arrow_downward" color="secondary" flat)
+                    q-btn(label="Descargar ficha técnica" type="a" target="_blank" :href="producto.path_ficha_tecnica" icon="arrow_downward" color="secondary" flat)
                     br
                     br
                     strong Realizar pedido
