@@ -2,8 +2,8 @@
     q-card.smooth-shadow(unelevate)
         q-card-section.q-pa-lg
             span.text-h6.text-center Iniciar sesión
-            q-input( v-model="auth.email" label="Correo electrónico")
-            q-input( v-model="auth.password" label="Contraseña" type="password")
+            q-input( v-model="auth.email" name="email" label="Correo electrónico")
+            q-input( v-model="auth.password" name="password" label="Contraseña" type="password")
             q-btn.q-mt-sm.full-width(:loading="cargando" label="Ingresar" @click="login" color="secondary" )
             .text-center
                 br
@@ -53,7 +53,9 @@ export default {
                     console.log('Iniciando sesion');
                     let auth = JSON.parse(JSON.stringify(data.data.login))
                     this.$store.commit('auth/login', auth)
+                    console.log('Datos en el card login al iniciar sesion:', this.$store.state.auth.info);
                     
+                    // this.$router.push({name: 'oferta.index'})
                     // this.$q.localStorage.set('info', auth)
                     // this.$q.localStorage.set('is_auth', true)
                     // this.$q.localStorage.set('token', auth.auth_token.access_token)

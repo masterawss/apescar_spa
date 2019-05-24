@@ -37,10 +37,7 @@ export default {
     }),
     methods: {
         enviarRespuesta(){
-            this.$q.notify({
-                color: 'primary',
-                message: 'Enviado correctamente'
-            })
+            this.$q.notify({ color: 'primary', message: 'Enviado correctamente' })
         }
     },
     computed: {

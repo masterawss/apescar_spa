@@ -15,6 +15,7 @@ const routes = [
       { path: '/empresa/:id', component: () => import('pages/Empresa/Show.vue'), name: 'empresa.show', meta: { requiresAuth: true } },
 
       { path: '/register', component: () => import('pages/Register/Index.vue'), name: 'register' },
+      { path: '/configuracion', component: () => import('pages/Configuracion/Index.vue'), name: 'configuracion.index' },
 
       // { path: '/empresa/perfil', component: () => import('pages/Perfil/Index.vue'), name: 'perfil.index' }
     ]

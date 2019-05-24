@@ -10,6 +10,7 @@
                             // q-btn.q-px-md(size="md" label="Ingresar" rounded color="secondary")
                         .col-lg-4.col-md-4.col-12(v-if="!isAuth")
                             w-card-login
+
             .row.justify-center.q-py-md
                 .col-lg-9.col-12
                     strong.text-h6 Últimas ofertas
@@ -30,21 +31,22 @@
                         div(v-else class="result apollo")
                         .col-lg-6.col-md-6.col-12(v-for="demanda in demandas")
                             w-demanda-card(:demanda="demanda")
+
             .row.bg-grey-1.justify-center
                 .col-lg-9.col-12
-                    .row
-                        .col-12-col-lg-4
+                    .row.justify-around
+                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
                             q-card.q-ma-xl.smooth-shadow(unelevate)
                                 q-card-section
-                                    | Encuentra tu producto
-                        .col-12-col-lg-4
+                                    .text-h6 Encuentra tu producto
+                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
                             q-card.q-ma-xl.smooth-shadow(unelevate)
                                 q-card-section
-                                    | Articulación Segura
-                        .col-12-col-lg-4
+                                    .text-h6 Articulación Segura
+                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
                             q-card.q-ma-xl.smooth-shadow(unelevate)
                                 q-card-section
-                                    | Negocia con Seguridad
+                                    .text-h6 Negocia con Seguridad
 </template>
 <style>
     .bg-landing{
