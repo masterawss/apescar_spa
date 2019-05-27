@@ -1,12 +1,13 @@
 <template lang="pug">
     q-page
         div
-            .row.justify-center.q-py-lg.bg-landing
+            .row.justify-center.q-py-xl.bg-landing
                 .col-lg-9.col-12
                     .row.items-center
                         .col-lg-8.col-md-8.col-sm-12.text-white.q-px-md
-                            h3 Impulsando la industria pesquera en la región de San Martín
-                            h5 El mejor lugar para ofertar y comprar tus productos.
+                            .text-h4 
+                                strong Impulsando la industria pesquera en la región de San Martín
+                            .text-h5 El mejor lugar para ofertar y comprar tus productos.
                             // q-btn.q-px-md(size="md" label="Ingresar" rounded color="secondary")
                         .col-lg-4.col-md-4.col-12(v-if="!isAuth")
                             w-card-login
@@ -14,6 +15,7 @@
             .row.justify-center.q-py-md
                 .col-lg-9.col-12
                     strong.text-h6 Últimas ofertas
+                    q-btn( v-if="isAuth" flat color="secondary" @click="$router.push({name: 'oferta.index'})" label="Ver más")
                     .row
                         .col-12.flex.flex-center(v-if="$apollo.queries.ofertas.loading")
                             q-spinner-ball(size="5em" color="primary")
@@ -23,6 +25,7 @@
                             w-producto-card(:producto="oferta")
                     br
                     strong.text-h6 Últimas demandas
+                    q-btn( v-if="isAuth" flat color="secondary" @click="$router.push({name: 'demanda.index'})" label="Ver más")
                     .row
                         .col-12.flex.flex-center(v-if="$apollo.queries.demandas.loading")
                             q-spinner-ball(size="5em" color="primary")
@@ -51,7 +54,8 @@
 <style>
     .bg-landing{
         /* background: url('../statics/bg_landing.jpg'); */
-        background: linear-gradient(rgba(0,0,0,.5), rgba(0,0,0,.5)),
+        /* background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0,0,0,.5)), */
+        background: linear-gradient(rgba(7, 119, 76, 0.5), rgba(4, 63, 141, 0.5)),
             url('../statics/bg_landing.jpg');
         background-size: cover;
         background-position: center;

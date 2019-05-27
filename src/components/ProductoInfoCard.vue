@@ -17,7 +17,9 @@
                     span.text-grey / {{ producto.unidad.descripcion }}
                     
                     br
-                    q-btn.q-my-lg(v-if="producto.path_ficha_tecnica !== null" label="Descargar ficha técnica" type="a" target="_blank" :href="producto.path_ficha_tecnica" icon="arrow_downward" color="secondary" flat)
+                    q-btn.q-my-lg(v-if="producto.path_ficha_tecnica !== ''" label="Descargar ficha técnica" type="a" target="_blank" :href="producto.path_ficha_tecnica" icon="arrow_downward" color="secondary" flat)
+                    .q-py-md.text-red(v-else) 
+                        strong No cuenta con ficha técnica
                     br
 
                     strong Realizar pedido
@@ -64,22 +66,27 @@ export default {
         realizarPedido(){
             this.loading = true
             this.$apollo.mutate({
-                mutation: gql`mutation realizarPedido($descripcion: String, $cantidad: Float, $unidad: Float, $fecha_entrega: Date){
-                    realizarPedido(descripcion: $descripcion, cantidad: $cantidad, id_unidad: $unidad, fecha_entrega: $fecha_entrega){
+                mutation: gql`mutation realizarPedidoOferta($id_publicacion: Float, $descripcion: String, $cantidad: Float, $unidad: Float, $fecha_entrega: Date){
+                    realizarPedidoOferta(id_publicacion: $id_publicacion, descripcion: $descripcion, cantidad: $cantidad, id_unidad: $unidad, fecha_entrega: $fecha_entrega){
                         id
                     }
                 }`,
                 variables: {
+                    id_publicacion: this.producto.id,
                     descripcion: this.form.descripcion,
                     cantidad: this.form.cantidad,
-                    unidad: this.form.unidad,
+                    unidad: this.form.unidad.id,
                     fecha_entrega: this.form.fecha_entrega
                 }
             }).then(response => {
+                console.log('Respuesta', response);
+                
                 this.loading = false
                 this.$q.notify({color: 'green', message: 'Se ha realizado el pedido.'})
                 
             }).catch(e => {
+                console.log('Error', e);
+                
                 this.$q.notify({color: 'red', message: 'No se pudo realizar el pedido, compruebe su conexión a internet.'})
                 this.loading = false
             })

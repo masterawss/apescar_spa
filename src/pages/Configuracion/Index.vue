@@ -10,39 +10,26 @@
                             q-item(clickable v-ripple @click="panel = 'suscripcion'")
                                 q-item-section Suscripción
                     .col
-                        q-tab-panels(v-model="panel" animated class="shadow-2 rounded-borders")
+                        q-tab-panels(v-model="panel" animated transition-prev="jump-up" transition-next="jump-down" class="shadow-2 rounded-borders")
                             q-tab-panel(name="general")
-                                .text-h5.q-mb-md Datos generales
-                                
-                                | Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                                .text-h5.q-mb-md Datos de empresa
-                                | Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                            q-tab-panel(name="suscripcion")
-                                .text-h5.q-mb-md Estado de suscripción
-                                | Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                w-form-usuario
+                                    
+                                w-form-empresa
 
-                                q-table(
-                                    title="Historial de suscripciones"
-                                    :data="data"
-                                    :columns="columns"
-                                    row-key="id"
-                                )
+                            q-tab-panel(name="suscripcion")
+                                w-suscripciones
 </template>
 
 <script>
-import { QTabPanels, QTabPanel, QTable, QTh, QTr, QTd  } from 'quasar'
+import { QTabPanels, QTabPanel } from 'quasar'
+import WFormUsuario from '../../components/EditFormUsuario'
+import WFormEmpresa from '../../components/EditFormEmpresa'
+import WSuscripciones from '../../components/SuscripcionesList'
+
 export default {
-    components: {QTabPanels, QTabPanel, QTable, QTh, QTr, QTd},
+    components: {QTabPanels, QTabPanel, WFormUsuario, WFormEmpresa, WSuscripciones},
     data: () => ({
         panel: 'general',
-        data: [
-
-        ],
-        columns: [
-            { name: 'codigo', label:"Código", field: 'codigo', sortable: true },
-            { name: 'fecha', label:"Fecha", field: 'fecha', sortable: true },
-            { name: 'monto', label:"Monto", field: 'monto', sortable: true }
-        ]
     })
 }
 </script>

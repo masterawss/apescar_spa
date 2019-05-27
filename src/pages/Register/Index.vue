@@ -88,38 +88,38 @@ export default {
     components: { QTabPanels, QTabPanel, QForm },
     data: () => ({
         tab: 'usuario',
-        usuario: {
-            dni: 71212729,
-            nombre: "asd",
-            telefono: "89732",
-            direccion: "Jr.Amorarc a",
-            email: "willsito@gmail.com",
-            password: "admin123",
-            confirm_password: "admin123",
-        },
-        empresa: {
-            ruc: 12345678987,
-            razon_social: "Wmprea de wilsito",
-            direccion: "Jr Callao",
-            email: "wilsito@gmail.com",
-            telefono: "924212321"
-        }
         // usuario: {
-        //     dni: null,
-        //     nombre: null,
-        //     telefono: null,
-        //     direccion: null,
-        //     email: null,
-        //     password: null,
-        //     confirm_password: null,
+        //     dni: 71212729,
+        //     nombre: "asd",
+        //     telefono: "89732",
+        //     direccion: "Jr.Amorarc a",
+        //     email: "willsito@gmail.com",
+        //     password: "admin123",
+        //     confirm_password: "admin123",
         // },
         // empresa: {
-        //     ruc: null,
-        //     razon_social: null,
-        //     direccion: null,
-        //     email: null,
-        //     telefono: null
+        //     ruc: 12345678987,
+        //     razon_social: "Wmprea de wilsito",
+        //     direccion: "Jr Callao",
+        //     email: "wilsito@gmail.com",
+        //     telefono: "924212321"
         // }
+        usuario: {
+            dni: null,
+            nombre: null,
+            telefono: null,
+            direccion: null,
+            email: null,
+            password: null,
+            confirm_password: null,
+        },
+        empresa: {
+            ruc: null,
+            razon_social: null,
+            direccion: null,
+            email: null,
+            telefono: null
+        }
     }),
     methods: {
         crear(){
@@ -145,14 +145,44 @@ export default {
                                     id
                                     razon_social
                                 }
+                                email_exists
+                                dni_exists
+                                ruc_exists
                         }
                     }`,
                     variables: {
                         UsuarioNuevo: this.usuario,
                         EmpresaNuevo: this.empresa
                     }
-                }).then(data => {
-                    console.log(data);
+                }).then(response => {
+                    this.cargando = false
+
+                    if (response.data.crearCuenta.email_exists) {
+                        this.$q.notify({message: 'El correo electrónico ya está registrado.', color: 'red'})
+                        return
+                    }
+                    if (response.data.crearCuenta.dni_exists) {
+                        this.$q.notify({message: 'El DNI ya está registrado.', color: 'red'})
+                        return
+                    }
+                    if (response.data.crearCuenta.ruc_exists) {
+                        this.$q.notify({message: 'El RUC ya está registrado.', color: 'red'})
+                        return
+                    }
+
+                    if(response.data.crearCuenta.auth_token !== null){
+                        console.log('Iniciando sesion');
+                        let auth = JSON.parse(JSON.stringify(response.data.crearCuenta))
+                        this.$store.commit('auth/login', auth)
+                        console.log('Datos en el card login al iniciar sesion:', this.$store.state.auth.info);
+                        this.$router.push({name: 'index'})
+                    }else{
+                        this.$q.notify({
+                            color: 'red',
+                            message: 'Error iniciando sesión.'
+                        })
+                    }
+                    // console.log(data);
                     this.$q.notify({ color: 'green', message: 'creado correctamente.' })
                     
                 }).catch(e => {

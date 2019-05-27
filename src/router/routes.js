@@ -16,6 +16,7 @@ const routes = [
 
       { path: '/register', component: () => import('pages/Register/Index.vue'), name: 'register' },
       { path: '/configuracion', component: () => import('pages/Configuracion/Index.vue'), name: 'configuracion.index' },
+      { path: '/configuracion/cambiar_password', component: () => import('pages/Configuracion/CambiarPassword.vue'), name: 'configuracion.change_password' },
 
       // { path: '/empresa/perfil', component: () => import('pages/Perfil/Index.vue'), name: 'perfil.index' }
     ]
