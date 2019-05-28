@@ -42,12 +42,13 @@
      
     q-drawer.smooth-shadow( v-if="$q.screen.lt.sm && isAuth"  v-model='leftDrawerOpen' content-class='smooth-shadow')
       q-list
-        q-item-label(header) Menú
+        q-item-label(header) Mercado
         q-item(clickable @click="$router.push({name: 'index' })")
           q-item-section(avatar)
             q-icon(name='home')
           q-item-section
             q-item-label Inicio
+
         q-item(clickable @click="$router.push({name: 'oferta.index' })")
           q-item-section(avatar)
             q-icon(name='shopping_cart')
@@ -58,13 +59,20 @@
             q-icon(name='shopping_basket')
           q-item-section
             q-item-label Demandas
+        q-item(clickable @click="$router.push({name: 'demanda.index' })")
+          q-item-section(avatar)
+            q-icon(name='shopping_basket')
+          q-item-section
+            q-item-label Pedidos
+        
 
-        q-item.q-mt-lg(clickable @click="$router.push({name: 'empresa.show', params: { id: empresa.id } })")
+        q-item-label(header) Cuenta
+        q-item(clickable @click="$router.push({name: 'empresa.show', params: { id: empresa.id } })")
           q-item-section(avatar)
             q-icon(name='account_circle')
           q-item-section
             q-item-label Perfil
-        q-item(clickable @click="$router.push({name: 'empresa.show', params: { id: empresa.id } })")
+        q-item(clickable @click="$router.push({name: 'configuracion.index' })")
           q-item-section(avatar)
             q-icon(name='settings')
           q-item-section

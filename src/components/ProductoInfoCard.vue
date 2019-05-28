@@ -24,10 +24,10 @@
 
                     strong Realizar pedido
                     q-input(v-model="form.descripcion" label="Descripcion")
-                    .row
-                        .col-lg-4.col-12.q-pr-md
+                    .row.q-col-gutter-sm
+                        .col-lg-4.col-12
                             q-input(v-model="form.cantidad" type="number" label="Cantidad")
-                        .col-lg-4.col-12.q-pr-md
+                        .col-lg-4.col-12
                             q-select(v-model="form.unidad" :options="unidades" label="Unidad" 
                                 option-value="id" option-label="descripcion")
                         .col-lg-4.col-12

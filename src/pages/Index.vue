@@ -7,7 +7,7 @@
                         .col-lg-8.col-md-8.col-sm-12.text-white.q-px-md
                             .text-h4 
                                 strong Impulsando la industria pesquera en la región de San Martín
-                            .text-h5 El mejor lugar para ofertar y comprar tus productos.
+                            .text-h5.q-mb-sm El mejor lugar para ofertar y comprar tus productos.
                             // q-btn.q-px-md(size="md" label="Ingresar" rounded color="secondary")
                         .col-lg-4.col-md-4.col-12(v-if="!isAuth")
                             w-card-login

@@ -2,27 +2,25 @@
     q-page
         .doc-container
             .row.justify-center
-                .col-lg-10.col-12
-                    .row.q-col-gutter-xs.q-mt-md
-                        .col-xl-3.col-lg-3.col-md-12.col-sm-12.col-xs-12
-                            w-card-empresa(:empresa="empresa")
-                        .col-xl-9.col-lg-9.col-md-12.col-sm-12.col-xs-12
-                            q-tabs.q-mb-lg.text-secondary(v-model="tab" align="justify" narrow-indicator)
-                                q-tab(name="ofertas" label="Ofertas")
-                                q-tab(name="demandas" label="Demandas")
-                            q-tab-panels(v-model="tab")
-                                q-tab-panel(name="ofertas")
-                                    .row
-                                        .col-lg-3.col-md-4.col-12(v-for="producto in ofertas" :key="producto.id")
-                                            w-card-oferta(:producto="producto" :hide_empresa="true")
-                                    q-page-sticky(position="bottom" :offset="[0, 20]")
-                                        q-btn(rounded label="Subir oferta" @click="$router.push({name: 'oferta.create'})" icon="add" color="teal")
-                                q-tab-panel(name="demandas")
-                                    .row
-                                        .col-lg-6.col-md-6.col-12(v-for="demanda in demandas" :key="demanda.id")
-                                            w-card-demanda(:demanda="demanda" :hide_empresa="true")
-                                    q-page-sticky(position="bottom" :offset="[0, 20]")
-                                        q-btn(rounded label="Subir demanda" @click="$router.push({name: 'demanda.create'})" icon="add" color="blue")
+                .col-lg-9.col-12
+                    w-card-empresa(:empresa="empresa")
+                    
+                    q-tabs(v-model="tab" align="justify" narrow-indicator class="q-mb-lg")
+                        q-tab(name="ofertas" label="Ofertas")
+                        q-tab(name="demandas" label="Demandas")
+                    q-tab-panels(v-model="tab")
+                        q-tab-panel(name="ofertas")
+                            .row
+                                .col-lg-3.col-md-4.col-6(v-for="producto in ofertas" :key="producto.id")
+                                    w-card-oferta(:producto="producto" :hide_empresa="true")
+                            q-page-sticky(position="bottom" :offset="[0, 20]")
+                                q-btn(rounded label="Subir oferta" @click="$router.push({name: 'oferta.create'})" icon="add" color="teal")
+                        q-tab-panel(name="demandas")
+                            .row
+                                .col-lg-6.col-md-6.col-12(v-for="demanda in demandas" :key="demanda.id")
+                                    w-card-demanda(:demanda="demanda" :hide_empresa="true")
+                            q-page-sticky(position="bottom" :offset="[0, 20]")
+                                q-btn(rounded label="Subir demanda" @click="$router.push({name: 'demanda.create'})" icon="add" color="blue")
 </template>
 
 <script>
