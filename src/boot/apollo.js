@@ -3,45 +3,33 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo';
 import { ApolloLink } from 'apollo-link'
+import { setContext } from 'apollo-link-context';
+
 
 import store from '../store'
 
 import { createUploadLink } from 'apollo-upload-client'
 
-// const httpLink = createHttpLink({ uri: 'http://192.168.43.29/apescar/public/graphql', fetch: fetch })
+const httpLink = createUploadLink({ uri: 'http://192.168.1.7/apescar/public/graphql', fetch: fetch })
 
-
-// const authMiddleware = new ApolloLink((operation, forward) => {
-//   // add the authorization to the headers
-//   // console.log(store().state.auth.info.length > 0);
-  
-//   // const token = store().state.auth.info.length > 0 ? store().state.auth.token : false
-
-//   const token = store().state.auth.token
-
-  
-//   operation.setContext({
-//     headers: {
-//       authorization: token ? `Bearer ${token}` : null 
-//     }
-//   })
-//   return forward(operation)
-// })
-
-const uri = "http://127.0.0.1:8000/graphql"
-// var token = store().state.auth.token
-const httpLink = createUploadLink({uri, 
-  headers: {
-    authorization: store().state.auth.token ? `Bearer ${store().state.auth.token}` : null 
-  }
-
-})
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    // const token = localStorage.getItem('token');
+    const token = store().state.auth.token
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+      }
+    }
+  });
 
 // Create the apollo client
 export const apolloClient = new ApolloClient({
-  link: httpLink,
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  connectToDevTools: true,
+  connectToDevTools: true
 })
 
 export const apolloProvider = new VueApollo({
@@ -59,6 +47,8 @@ export const apolloProvider = new VueApollo({
     }
   }
 })
+
+
 // "async" is optional
 export default async ({ app, Vue }) => {
   // something to do
