@@ -4,16 +4,16 @@
             .row.justify-center
                 .col-lg-10.col-12
                     .row.q-col-gutter-xs.q-mt-md
-                        .col-xl-3.col-lg-3.col-md-12.col-sm-12.col-xs-12
+                        .col-xl-3.col-lg-3.col-md-3.col-sm-12.col-xs-12
                             w-card-empresa(:empresa="empresa")
-                        .col-xl-9.col-lg-9.col-md-12.col-sm-12.col-xs-12
+                        .col-xl-9.col-lg-9.col-md-9.col-sm-12.col-xs-12
                             q-tabs.q-mb-lg.text-secondary(v-model="tab" align="justify" narrow-indicator)
                                 q-tab(name="ofertas" label="Ofertas")
                                 q-tab(name="demandas" label="Demandas")
                             q-tab-panels(v-model="tab")
                                 q-tab-panel(name="ofertas")
                                     .row
-                                        .col-lg-3.col-md-4.col-12(v-for="producto in ofertas" :key="producto.id")
+                                        .col-lg-3.col-md-4.col-sm-6.col-xs-12(v-for="producto in ofertas" :key="producto.id")
                                             w-card-oferta(:producto="producto" :hide_empresa="true")
                                     q-page-sticky(position="bottom" :offset="[0, 20]")
                                         q-btn(rounded label="Subir oferta" @click="$router.push({name: 'oferta.create'})" icon="add" color="teal")
@@ -51,6 +51,14 @@ export default {
                     unidad{
                         id
                         descripcion
+                    }
+                    empresa{
+                        id
+                        razon_social
+                        url_imagen
+                        telefono
+                        direccion
+                        email
                     }
                 }    
             }`,

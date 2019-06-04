@@ -21,18 +21,20 @@
                     .q-py-md.text-red(v-else) 
                         strong No cuenta con ficha técnica
                     br
-
-                    strong Realizar pedido
-                    q-input(v-model="form.descripcion" label="Descripcion")
-                    .row.q-col-gutter-sm
-                        .col-lg-4.col-12
-                            q-input(v-model="form.cantidad" type="number" label="Cantidad")
-                        .col-lg-4.col-12
-                            q-select(v-model="form.unidad" :options="unidades" label="Unidad" 
-                                option-value="id" option-label="descripcion")
-                        .col-lg-4.col-12
-                            q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
-                    q-btn.q-my-md.full-width(label="Pedir" :loading="loading" @click="realizarPedido" color="secondary")
+                    div(v-if="producto.empresa.id !== $store.state.auth.info.empresa.id")
+                        strong Realizar pedido
+                        q-input(v-model="form.descripcion" label="Descripcion")
+                        .row.q-col-gutter-sm
+                            .col-lg-4.col-12
+                                q-input(v-model="form.cantidad" type="number" label="Cantidad")
+                            .col-lg-4.col-12
+                                q-select(v-model="form.unidad" :options="unidades" label="Unidad" 
+                                    option-value="id" option-label="descripcion")
+                            .col-lg-4.col-12
+                                q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
+                        q-btn.q-my-md.full-width(label="Pedir" :loading="loading" @click="realizarPedido" color="secondary")
+                    div(v-else)
+                        q-btn(label="Editar publicación" color="primary" @click="$router.push({name: 'oferta.edit' , params: { id: producto.id } })")
 
 </template>
 
@@ -73,10 +75,10 @@ export default {
                 }`,
                 variables: {
                     id_publicacion: this.producto.id,
-                    descripcion: this.form.descripcion,
-                    cantidad: this.form.cantidad,
-                    unidad: this.form.unidad.id,
-                    fecha_entrega: this.form.fecha_entrega
+                    descripcion:    this.form.descripcion,
+                    cantidad:       this.form.cantidad,
+                    unidad:         this.form.unidad.id,
+                    fecha_entrega:  this.form.fecha_entrega
                 }
             }).then(response => {
                 console.log('Respuesta', response);
@@ -91,7 +93,6 @@ export default {
                 this.loading = false
             })
             console.log(this.form);
-            
         }
     }
 }
