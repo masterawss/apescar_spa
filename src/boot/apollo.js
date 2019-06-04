@@ -3,35 +3,33 @@ import { createHttpLink } from 'apollo-link-http'
 import { InMemoryCache } from 'apollo-cache-inmemory'
 import VueApollo from 'vue-apollo';
 import { ApolloLink } from 'apollo-link'
+import { setContext } from 'apollo-link-context';
+
 
 import store from '../store'
 
-const httpLink = createHttpLink({ uri: 'http://192.168.1.33/apescar/public/graphql', fetch: fetch })
+import { createUploadLink } from 'apollo-upload-client'
 
+const httpLink = createUploadLink({ uri: 'http://192.168.1.7/apescar/public/graphql', fetch: fetch })
 
-const authMiddleware = new ApolloLink((operation, forward) => {
-  // add the authorization to the headers
-  // console.log(store().state.auth.info.length > 0);
-  
-  // const token = store().state.auth.info.length > 0 ? store().state.auth.token : false
-
-  const token = store().state.auth.token
-
-  
-  operation.setContext({
-    headers: {
-      authorization: token ? `Bearer ${token}` : null 
+const authLink = setContext((_, { headers }) => {
+    // get the authentication token from local storage if it exists
+    // const token = localStorage.getItem('token');
+    const token = store().state.auth.token
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : "",
+      }
     }
-  })
-  return forward(operation)
-})
-
+  });
 
 // Create the apollo client
 export const apolloClient = new ApolloClient({
-  link: authMiddleware.concat(httpLink),
+  link: authLink.concat(httpLink),
   cache: new InMemoryCache(),
-  connectToDevTools: true,
+  connectToDevTools: true
 })
 
 export const apolloProvider = new VueApollo({
@@ -49,6 +47,8 @@ export const apolloProvider = new VueApollo({
     }
   }
 })
+
+
 // "async" is optional
 export default async ({ app, Vue }) => {
   // something to do

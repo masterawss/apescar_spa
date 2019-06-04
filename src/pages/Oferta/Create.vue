@@ -5,44 +5,61 @@
                 .col-lg-8.col-12
                     q-card.smooth-shadow.q-my-md
                         q-card-section
-                            .row
-                                .col-lg-6.col-sm-12.col-xs-12.col-md-6
-                                    .flex.flex-center
-                                        q-uploader(
-                                            @added="setImage"
-                                            url="http://localhost:4444/upload"
-                                            color="teal"
-                                            flat
-                                            v-model="form.img"
-                                            label="Inserte una imagen"
-                                            accept=".jpg, image/*"
-                                            hide-upload-btn
-                                            bordered)
-                                        //- input(type="file" v-model="form.img" )
-                                .col-lg-6.col-sm-12.col-xs-12.col-md-6
-                                    .row
-                                        .col-6
-                                            q-select(label="Especie" :options="especies" option-value="id" option-label="descripcion" v-model="form.especie")
-                                        .col-6.q-pl-md
-                                            q-select(label="Categoria" :options="categorias" option-value="id" option-label="descripcion" v-model="form.categoria")
-                                    q-input(label="Titulo" v-model="form.titulo")
-                                    q-input(label="Descripcion" v-model="form.descripcion")
-                                    .row
-                                        .col-6
-                                            q-input(label="Precio" type="number" v-model="form.precio")
-                                        .col-6.q-pl-md
-                                            q-select( label="Unidad de medida" :options="unidades" option-value="id" option-label="descripcion" v-model="form.unidad")
-                                    q-btn.q-my-md(color="secondary" @click="crear" label="Crear oferta")
+                            q-form(@submit="crear")
+                                .row
+                                    .col-lg-6.col-sm-12.col-xs-12.col-md-6
+                                        .flex.flex-center
+                                            .row
+                                                .col-12
+                                                    q-uploader.q-mb-md(
+                                                        @added="setImage"
+                                                        url="http://localhost:4444/upload"
+                                                        color="teal"
+                                                        flat
+                                                        v-model="form.img"
+                                                        label="Inserte una imagen referencial del producto."
+                                                        accept=".jpg, image/*"
+                                                        hide-upload-btn
+                                                        bordered)
+
+                                                    .col-12
+                                                        q-uploader(
+                                                            @added="setEspecificacion_tecnica"
+                                                            url="http://localhost:4444/upload"
+                                                            color="secondary"
+                                                            flat
+                                                            v-model="form.especificacion_tecnica"
+                                                            label="Inserte el documento de especificaciones técnicas"
+                                                            hide-upload-btn
+                                                            bordered)
+                                            //- vue-dropzone( @vdropzone-file-added="addImg" ref="myVueDropzone" id="dropzone" :options="dropzoneOptions")
+                                            //- input(type="file" v-model="form.img" )
+                                    .col-lg-6.col-sm-12.col-xs-12.col-md-6
+                                        .row
+                                            .col-6
+                                                q-select(label="Especie" :options="especies" option-value="id" option-label="descripcion" v-model="form.especie")
+                                            .col-6.q-pl-md
+                                                q-select(label="Categoria" :options="categorias" option-value="id" option-label="descripcion" v-model="form.categoria")
+                                        q-input(label="Titulo" v-model="form.titulo")
+                                        q-input(label="Descripcion" v-model="form.descripcion")
+                                        .row
+                                            .col-6
+                                                q-input(label="Precio" type="number" v-model="form.precio")
+                                            .col-6.q-pl-md
+                                                q-select( label="Unidad de medida" :options="unidades" option-value="id" option-label="descripcion" v-model="form.unidad")
+                                        q-btn.q-my-md(color="secondary" type="submit" label="Crear oferta")
 </template>
 
 <script>
-import { QUploader } from 'quasar'
+import { QUploader, QForm } from 'quasar'
+
 import gql from 'graphql-tag';
 
 // import especies from '../../graphql/widgets'
 export default {
     components: {
-        QUploader   
+        QUploader,
+        QForm,
     },
     apollo: {
         unidades: gql`query{
@@ -72,27 +89,31 @@ export default {
             precio: 0,
             img: null,
             especie: null,
-            categoria: null
+            categoria: null,
+            especificacion_tecnica: null
         }
     }),
     methods: {
+        srcToFile(src, fileName, mimeType){
+            return (fetch(src)
+                .then(function(res){return res.arrayBuffer();})
+                .then(function(buf){return new File([buf], fileName, {type:mimeType});})
+            );
+        },
         setImage(file){
             
             this.form.img = file[0]
-
-            delete this.form.img.__status
-            delete this.form.img.__uploaded
-            delete this.form.img.__progress
-            delete this.form.img.__sizeLabel
-            delete this.form.img.__progressLabel
-            delete this.form.img.__img
-
+            console.log(typeof this.form.img);
             console.log(this.form.img);
+        },
+        setEspecificacion_tecnica(file){
+            this.form.especificacion_tecnica = file[0];
         },
          crear(){
              this.$apollo.mutate({
                  mutation: gql`mutation crearOferta(
                     $imagen: Upload,
+                    $especificacion_tecnica: Upload,
                     $titulo: String!,
                     $descripcion: String!,
                     $precio: Float!,
@@ -102,6 +123,7 @@ export default {
                  ){
                      crearOferta(
                         imagen: $imagen,
+                        especificacion_tecnica: $especificacion_tecnica
                         titulo: $titulo,
                         descripcion: $descripcion,
                         precio: $precio,
@@ -109,8 +131,7 @@ export default {
                         id_especie: $id_especie,
                         id_categoria: $id_categoria
                      ){
-                         id
-                         titulo
+                        id
                      }
                  }
                  `,
@@ -121,15 +142,23 @@ export default {
                     precio: this.form.precio,
                     id_unidad: this.form.unidad.id,
                     id_especie: this.form.especie.id,
-                    id_categoria: this.form.categoria.id
+                    id_categoria: this.form.categoria.id,
+                    especificacion_tecnica: this.form.especificacion_tecnica
                     
                  }
              }).then(data => {
-                 console.log('Dato obtenido', data);
+                //  if(data.data.crearDemanda.id == null) throw 'Error obteniendo'
+                this.$q.notify({
+                    color: 'green',
+                    message: 'Oferta creada correctamente.'
+                })
+                this.$router.go(-1)
                  
              }).catch(e => {
-                 console.log('Error', e);
-                 
+                this.$q.notify({
+                    color: 'red',
+                    message: 'Ha ocurrido un error, compruebe su conexión de internet   .'
+                })
              })
          }
     }

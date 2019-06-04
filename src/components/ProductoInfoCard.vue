@@ -15,33 +15,24 @@
                         | {{ producto.descripcion }}
                     strong.text-blue {{ producto.precio }} soles &nbsp
                     span.text-grey / {{ producto.unidad.descripcion }}
+                    
                     br
+                    q-btn.q-my-lg(v-if="producto.path_ficha_tecnica !== ''" label="Descargar ficha técnica" type="a" target="_blank" :href="producto.path_ficha_tecnica" icon="arrow_downward" color="secondary" flat)
+                    .q-py-md.text-red(v-else) 
+                        strong No cuenta con ficha técnica
                     br
-                    q-btn(label="Descargar ficha técnica" icon="arrow_downward" color="secondary" flat)
-                    br
-                    br
+
                     strong Realizar pedido
                     q-input(v-model="form.descripcion" label="Descripcion")
-                    .row
-                        .col-lg-4.col-12.q-pr-md
+                    .row.q-col-gutter-sm
+                        .col-lg-4.col-12
                             q-input(v-model="form.cantidad" type="number" label="Cantidad")
-                        .col-lg-4.col-12.q-pr-md
+                        .col-lg-4.col-12
                             q-select(v-model="form.unidad" :options="unidades" label="Unidad" 
                                 option-value="id" option-label="descripcion")
                         .col-lg-4.col-12
                             q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
-                    q-btn.q-my-md.full-width(label="Pedir" @click="realizarPedido" color="secondary")
-            // q-img(src="https://www.thespruceeats.com/thmb/Q5rf13VgpuvFVdQqEuVV1jaIERw=/450x0/filters:no_upscale():max_bytes(150000):strip_icc()/GettyImages-163137259-5b7ef8f4c9e77c0024ce934d.jpg")
-            // .row.q-pa-md
-            //     .col-8
-            //         strong Titulo
-            //         p Lorem ipsum aoskdjsiadhf ljashfdjlsdhf sfbgajsdgfbajsdfgjasl gfkjasgf
-            //     .col-4
-            //         q-input(v-model="text" label="Descripcion")
-            //         q-input(v-model="text" label="Cantidad")
-            //         q-input(v-model="text" label="Unidad")
-            //         q-input(v-model="text" label="Fecha de entrega")
-            //         q-btn.q-my-md(label="Pedir" color="secondary")
+                    q-btn.q-my-md.full-width(label="Pedir" :loading="loading" @click="realizarPedido" color="secondary")
 
 </template>
 
@@ -62,13 +53,43 @@ export default {
     },
     data: () => ({
         text: '',
+        loading: false,
         form: {
-
+            descripcion: null,
+            cantidad: null,
+            unidad: null,
+            fecha_entrega: null
         },
     }),
     props: ['producto'],
     methods: {
         realizarPedido(){
+            this.loading = true
+            this.$apollo.mutate({
+                mutation: gql`mutation realizarPedidoOferta($id_publicacion: Float, $descripcion: String, $cantidad: Float, $unidad: Float, $fecha_entrega: Date){
+                    realizarPedidoOferta(id_publicacion: $id_publicacion, descripcion: $descripcion, cantidad: $cantidad, id_unidad: $unidad, fecha_entrega: $fecha_entrega){
+                        id
+                    }
+                }`,
+                variables: {
+                    id_publicacion: this.producto.id,
+                    descripcion: this.form.descripcion,
+                    cantidad: this.form.cantidad,
+                    unidad: this.form.unidad.id,
+                    fecha_entrega: this.form.fecha_entrega
+                }
+            }).then(response => {
+                console.log('Respuesta', response);
+                
+                this.loading = false
+                this.$q.notify({color: 'green', message: 'Se ha realizado el pedido.'})
+                
+            }).catch(e => {
+                console.log('Error', e);
+                
+                this.$q.notify({color: 'red', message: 'No se pudo realizar el pedido, compruebe su conexión a internet.'})
+                this.loading = false
+            })
             console.log(this.form);
             
         }

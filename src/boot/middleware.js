@@ -29,6 +29,8 @@ export default async ({ router /* app, router, Vue, ... */ }) => {
           console.log('Cerrando sesión');
           
           store().commit('auth/logout')
+          console.log(store().commit('auth/logout'));
+          
           return router.push({ name: 'index' });
         }
       }).catch(e => {

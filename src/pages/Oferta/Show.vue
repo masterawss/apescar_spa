@@ -10,7 +10,7 @@
                     br
                     h5 Tambien te puede interesar
                     .row
-                        .col-12.col-lg-3.col-md-3(v-for="oferta in ofertas")
+                        .col-6.col-lg-3.col-md-3(v-for="oferta in ofertas")
                             w-producto-card(:producto="oferta")
                     //- br
                     //- span.q-pt-lg.text-subtitle1 Tambien te puede interesar
@@ -44,6 +44,7 @@ export default {
                     descripcion
                     path_imagen
                     precio
+                    path_ficha_tecnica
                     empresa{
                         id
                         razon_social
