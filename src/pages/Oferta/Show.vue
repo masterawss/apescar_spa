@@ -7,16 +7,15 @@
                         q-spinner-ball(size="5em" color="primary")
                     div(v-else)
                         w-producto-info(:producto="publicacion")
+                        //- .row
+                        //-     .col-12
+                        //-     .col-4
+                        //-         w-list-pedidos(:pedidos="publicacion.pedidos")
                     br
                     h5 Tambien te puede interesar
                     .row
                         .col-6.col-lg-3.col-md-3(v-for="oferta in ofertas")
                             w-producto-card(:producto="oferta")
-                    //- br
-                    //- span.q-pt-lg.text-subtitle1 Tambien te puede interesar
-                    //- .row
-                    //-     .col-3(v-for="i in 4")
-                    //-         w-producto-card(:producto="producto_prueba")
 </template>
 <style>
 
@@ -29,6 +28,7 @@ import gql from 'graphql-tag'
 
 import WProductoCard from '../../components/ProductoCard'
 import WProductoInfo from '../../components/ProductoInfoCard'
+import WListPedidos from '../../components/ListPedidos'
 
 export default {
     created (){
@@ -53,6 +53,16 @@ export default {
                     unidad{
                         id
                         descripcion
+                    }
+                    pedidos{
+                        empresa{
+                            id
+                            razon_social
+                        }
+                        mensaje_interesado
+                        cantidad
+                        created_at
+                        fecha_esperada
                     }
                 }
             }`,
@@ -84,7 +94,7 @@ export default {
         }
         
     },
-    components: { WProductoInfo, WProductoCard, QSpinnerBall},
+    components: { WProductoInfo, WProductoCard, QSpinnerBall, WListPedidos},
     data: () => ({
         id: null,
         mensaje: 'Hola Anthony Will Solsol Soplin, poke eres feito?'

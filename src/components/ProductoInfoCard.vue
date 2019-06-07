@@ -21,18 +21,20 @@
                     .q-py-md.text-red(v-else) 
                         strong No cuenta con ficha técnica
                     br
-
-                    strong Realizar pedido
-                    q-input(v-model="form.descripcion" label="Descripcion")
-                    .row.q-col-gutter-sm
-                        .col-lg-4.col-12
-                            q-input(v-model="form.cantidad" type="number" label="Cantidad")
-                        .col-lg-4.col-12
-                            q-select(v-model="form.unidad" :options="unidades" label="Unidad" 
-                                option-value="id" option-label="descripcion")
-                        .col-lg-4.col-12
-                            q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
-                    q-btn.q-my-md.full-width(label="Pedir" :loading="loading" @click="realizarPedido" color="secondary")
+                    div(v-if="producto.empresa.id !== $store.state.auth.info.empresa.id")
+                        strong Realizar pedido
+                        q-input(v-model="form.mensaje" label="Mensaje")
+                        .row.q-col-gutter-sm
+                            .col-lg-4.col-12
+                                q-input(v-model="form.cantidad" type="number" label="Cantidad")
+                            .col-lg-4.col-12
+                                q-select(v-model="form.unidad" :options="unidades" label="Unidad" 
+                                    option-value="id" option-label="descripcion")
+                            .col-lg-4.col-12
+                                q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
+                        q-btn.q-my-md.full-width(label="Pedir" :loading="loading" @click="realizarPedido" color="secondary")
+                    div(v-else)
+                        q-btn(label="Editar publicación" color="primary" @click="$router.push({name: 'oferta.edit' , params: { id: producto.id } })")
 
 </template>
 
@@ -55,7 +57,7 @@ export default {
         text: '',
         loading: false,
         form: {
-            descripcion: null,
+            mensaje: null,
             cantidad: null,
             unidad: null,
             fecha_entrega: null
@@ -66,21 +68,20 @@ export default {
         realizarPedido(){
             this.loading = true
             this.$apollo.mutate({
-                mutation: gql`mutation realizarPedidoOferta($id_publicacion: Float, $descripcion: String, $cantidad: Float, $unidad: Float, $fecha_entrega: Date){
-                    realizarPedidoOferta(id_publicacion: $id_publicacion, descripcion: $descripcion, cantidad: $cantidad, id_unidad: $unidad, fecha_entrega: $fecha_entrega){
+                mutation: gql`mutation realizarPedidoOferta($id_publicacion: Float, $mensaje: String, $cantidad: Float, $unidad: Float, $fecha_entrega: Date){
+                    realizarPedidoOferta(id_publicacion: $id_publicacion, mensaje: $mensaje, cantidad: $cantidad, id_unidad: $unidad, fecha_entrega: $fecha_entrega){
                         id
                     }
                 }`,
                 variables: {
                     id_publicacion: this.producto.id,
-                    descripcion: this.form.descripcion,
-                    cantidad: this.form.cantidad,
-                    unidad: this.form.unidad.id,
-                    fecha_entrega: this.form.fecha_entrega
+                    mensaje:    this.form.mensaje,
+                    cantidad:       this.form.cantidad,
+                    unidad:         this.form.unidad.id,
+                    fecha_entrega:  this.form.fecha_entrega
                 }
             }).then(response => {
-                console.log('Respuesta', response);
-                
+                console.log('Respuesta', response)
                 this.loading = false
                 this.$q.notify({color: 'green', message: 'Se ha realizado el pedido.'})
                 
@@ -91,7 +92,6 @@ export default {
                 this.loading = false
             })
             console.log(this.form);
-            
         }
     }
 }

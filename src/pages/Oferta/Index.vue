@@ -19,7 +19,7 @@
                 q-spinner-ball(size="5em" color="primary")
             .col-12.flex.flex-center.q-py-lg(v-else-if="$apollo.queries.ofertas.error" class="error apollo")
                 | A ocurrido un error
-            .col-lg-3.col-md-4.col-12(v-for="producto in ofertas" :key="producto.id")
+            .col-lg-3.col-md-4.col-xs-12.col-sm-6(v-for="producto in ofertas" :key="producto.id")
               w-producto-card(:producto="producto")
 
           //- template(v-show="$apolloData.loading")
