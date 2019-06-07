@@ -10,7 +10,7 @@ import store from '../store'
 
 import { createUploadLink } from 'apollo-upload-client'
 
-const httpLink = createUploadLink({ uri: 'http://192.168.1.7/apescar/public/graphql', fetch: fetch })
+const httpLink = createUploadLink({ uri: 'http://192.168.1.42/apescar/public/graphql', fetch: fetch })
 
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists

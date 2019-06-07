@@ -18,6 +18,8 @@ const routes = [
       { path: '/configuracion', component: () => import('pages/Configuracion/Index.vue'), name: 'configuracion.index' },
       { path: '/configuracion/cambiar_password', component: () => import('pages/Configuracion/CambiarPassword.vue'), name: 'configuracion.change_password' },
 
+      { path: '/pedidos', component: () => import('pages/Pedido/Show.vue'), name: 'pedidos.show' },
+
       // { path: '/empresa/perfil', component: () => import('pages/Perfil/Index.vue'), name: 'perfil.index' }
     ]
   }

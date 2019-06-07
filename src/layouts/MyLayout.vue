@@ -30,6 +30,9 @@
               q-item(clickable v-close-popup @click="$router.push({name: 'empresa.show', params: { id: empresa.id } })")
                 q-item-section
                   q-item-label Perfil
+              q-item(clickable v-close-popup @click="$router.push({name: 'pedidos.show' })")
+                q-item-section
+                  q-item-label Pedidos
               q-item(clickable v-close-popup @click="$router.push({name: 'configuracion.index' })")
                 q-item-section
                   q-item-label Configuración
