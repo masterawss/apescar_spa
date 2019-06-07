@@ -17,9 +17,29 @@
             br
             span.text-subtitle2 {{ producto.titulo }}
             br
+            //- q-list(dense)
+                q-item(dense)
+                    q-item-section
+                        q-item-label
+                            strong.text-blue {{ producto.precio }} soles &nbsp
+                            span.text-grey / {{producto.unidad.descripcion}}
+                        //- q-item-label(caption lines="2")Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit. 
+
+                    q-item-section(side top)
+                        q-item-label(caption) 10
+                        q-icon(name="star" color="yellow")  
+                
             div(v-if="isAuth && !hide_precio")
-                strong.text-blue {{ producto.precio }} soles &nbsp
-                span.text-grey / {{producto.unidad.descripcion}}
+                .row
+                    .col-10
+                        strong.text-blue {{ producto.precio }} soles &nbsp
+                        span.text-grey / {{producto.unidad.descripcion}}
+                    .col-2.text-secondary(v-if="producto.total_pedidos")
+                        |{{ producto.total_pedidos }} &nbsp
+                        q-icon(name="message" ) 
+            
+
+
 </template>
 <style>
 .card-oferta:hover{

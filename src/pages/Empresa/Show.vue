@@ -48,6 +48,7 @@ export default {
                     descripcion
                     precio
                     path_imagen
+                    total_pedidos
                     unidad{
                         id
                         descripcion
