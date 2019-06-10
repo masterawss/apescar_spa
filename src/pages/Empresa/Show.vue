@@ -13,12 +13,23 @@
                             q-tab-panels(v-model="tab")
                                 q-tab-panel(name="ofertas")
                                     .row
-                                        .col-lg-4.col-md-4.col-12(v-for="producto in ofertas" :key="producto.id")
+                                        .col-12(v-if="ofertas.length == 0")
+                                            .text-center
+                                                .text-h5.text-center.q-mt-xl No tiene ninguna publicación de oferta
+                                                .span.text-grey Puede crear uno aquí.
+
+                                        .col-lg-4.col-md-4.col-12( v-else v-for="producto in ofertas" :key="producto.id")
                                             w-card-oferta(:producto="producto" :hide_empresa="true")
                                     q-page-sticky(position="bottom" :offset="[0, 20]")
                                         q-btn(rounded label="Subir oferta" @click="$router.push({name: 'oferta.create'})" icon="add" color="teal")
+
                                 q-tab-panel(name="demandas")
                                     .row
+                                        .col-12(v-if="demandas.length == 0")
+                                            .text-center
+                                                .text-h5.text-center.q-mt-xl No tiene ninguna publicación de demanda
+                                                .span.text-grey Puede crear uno aquí.
+                                                
                                         .col-lg-12.col-md-12.col-12(v-for="demanda in demandas" :key="demanda.id")
                                             w-card-demanda(:demanda="demanda" :hide_empresa="true")
                                     q-page-sticky(position="bottom" :offset="[0, 20]")

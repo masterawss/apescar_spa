@@ -20,7 +20,7 @@
             .col-12.flex.flex-center.q-py-lg(v-else-if="$apollo.queries.ofertas.error" class="error apollo")
                 | A ocurrido un error
             .col-lg-3.col-md-4.col-xs-12.col-sm-6(v-for="producto in ofertas" :key="producto.id")
-              w-producto-card(:producto="producto")
+              w-producto-card.smooth-shadow.q-my-xs(:producto="producto")
 
           //- template(v-show="$apolloData.loading")
           //-   div.row.justify-center.q-my-md
@@ -33,14 +33,13 @@
 <script>
 import WFiltro from '../../components/FiltroCard'
 import WProductoCard from '../../components/ProductoCard'
-import WProductoInfoCard from '../../components/ProductoInfoCard'
 import {QCard, QCardSection,QInput, QInfiniteScroll, QSpinnerDots, QDialog, QSpinnerBall} from 'quasar'
 
 import gql from 'graphql-tag'
 
 export default {
   name: 'PageIndex',
-  components: {WFiltro,WProductoCard,WProductoInfoCard, QInput, QInfiniteScroll, QSpinnerDots, QDialog, QSpinnerBall},
+  components: {WFiltro,WProductoCard, QInput, QInfiniteScroll, QSpinnerDots, QDialog, QSpinnerBall},
   apollo: {
     ofertas: {
       query(){

@@ -1,10 +1,10 @@
 <template lang="pug">
     q-card.card-oferta.q-ma-sm.smooth-shadow(unelevated)
         //- q-item.q-pt-md(v-if="isAuth && !hide_empresa" )
-        q-item.q-pt-md(v-if="isAuth" )
+        q-item.q-pt-md(v-if="isAuth && producto.empresa" )
             q-item-section(v-if="!hide_empresa" avatar)
                 q-avatar(size="30px")
-                    img(:src="producto.empresa.url_imagen" @click="open_producto = true")
+                    img(:src="producto.empresa.url_imagen")
 
             q-item-section(v-if="!hide_empresa" @click="$router.push({name: 'empresa.show', params: { id: producto.empresa.id } })") {{ producto.empresa.razon_social }}
             
@@ -12,31 +12,34 @@
                 q-btn.text-grey-5(size="12px" flat dense round icon="edit" @click="$router.push({name: 'oferta.edit', params: { id: producto.id } })")
 
         q-card-section(v-ripple)
-            q-img(:src="producto.path_imagen" :ratio="16/9" @click="go")
-            br
-            br
-            span.text-subtitle2 {{ producto.titulo }}
-            br
-            //- q-list(dense)
-                q-item(dense)
-                    q-item-section
-                        q-item-label
-                            strong.text-blue {{ producto.precio }} soles &nbsp
-                            span.text-grey / {{producto.unidad.descripcion}}
-                        //- q-item-label(caption lines="2")Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit. 
+            .row.items-center.q-col-gutter-sm
+                //- div(:class="{ 'col-12': $q.screen.lt.lg, 'col-6': $q.screen.lt.sm }")
+                    q-img(:src="producto.path_imagen" :ratio="16/9" @click="go")
+                .col-lg-12.col-md-12.col-sm-6.col-xs-6
+                    q-img(:src="producto.path_imagen" width="100%" :ratio="16/9" @click="go")
+                .col-lg-12.col-md-12.col-sm-6.col-xs-6
+                    span.text-subtitle2 {{ producto.titulo }}
+                    br
+                    //- q-list(dense)
+                        q-item(dense)
+                            q-item-section
+                                q-item-label
+                                    strong.text-blue {{ producto.precio }} soles &nbsp
+                                    span.text-grey / {{producto.unidad.descripcion}}
+                                //- q-item-label(caption lines="2")Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit. 
 
-                    q-item-section(side top)
-                        q-item-label(caption) 10
-                        q-icon(name="star" color="yellow")  
+                            q-item-section(side top)
+                                q-item-label(caption) 10
+                                q-icon(name="star" color="yellow")  
                 
-            div(v-if="isAuth && !hide_precio")
-                .row
-                    .col-10
-                        strong.text-blue {{ producto.precio }} soles &nbsp
-                        span.text-grey / {{producto.unidad.descripcion}}
-                    .col-2.text-secondary(v-if="producto.total_pedidos")
-                        |{{ producto.total_pedidos }} &nbsp
-                        q-icon(name="message" ) 
+                    div(v-if="isAuth && !hide_precio")
+                        .row
+                            .col-10
+                                strong.text-blue {{ producto.precio }} soles &nbsp
+                                span.text-grey / {{producto.unidad.descripcion}}
+                            .col-2.text-secondary(v-if="producto.total_pedidos")
+                                |{{ producto.total_pedidos }} &nbsp
+                                q-icon(name="message" ) 
             
 
 
