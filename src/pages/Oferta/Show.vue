@@ -14,8 +14,8 @@
                     br
                     h5 Tambien te puede interesar
                     .row
-                        .col-12.col-lg-3.col-md-3(v-for="oferta in ofertas")
-                            w-producto-card(:producto="oferta")
+                        .col-sm-6.col-lg-3.col-md-3(v-for="oferta in ofertas")
+                            w-producto-card.q-ma-sm(:producto="oferta")
 </template>
 <style>
 

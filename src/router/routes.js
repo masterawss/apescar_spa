@@ -22,6 +22,8 @@ const routes = [
 
       { path: '/pedidos', component: () => import('pages/Pedido/Show.vue'), name: 'pedidos.show' },
 
+      { path: '/notificaciones', component: () => import('pages/Notificaciones/Show.vue'), name: 'notificaciones.show' },
+
       // { path: '/empresa/perfil', component: () => import('pages/Perfil/Index.vue'), name: 'perfil.index' }
     ]
   }

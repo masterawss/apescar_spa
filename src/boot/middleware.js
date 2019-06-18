@@ -6,38 +6,35 @@ import gql from 'graphql-tag'
 // "async" is optional
 export default async ({ router /* app, router, Vue, ... */ }) => {
   // something to do
-  router.beforeEach( (to, from, next) => {
+  router.beforeEach( async (to, from, next) => {
     console.log('Entrando al middleware');
     
-    if ( to.meta.requiresAuth ) {
+    if ( !to.meta.requiresAuth ) return next();
+    else{
       console.log('Respuesta del middleware', store().state.auth.token );
-      apolloClient.query({
-        query: gql`query($token: String){
-          autorizacion(token: $token){
-            id
-            nombre
+      try{
+        var res = await apolloClient.query({
+          query: gql`query($token: String){
+            autorizacion(token: $token){
+              id
+              nombre
+            }
+          }`,
+          variables: {
+            token: store().state.auth.token
           }
-        }`,
-        variables: {
-          token: store().state.auth.token
-        }
-      }).then(res => {
+        })
         if(res.data.autorizacion){
           console.log('peticion de login desde servidor: ', res);
           return next()
         }else{
-          console.log('Cerrando sesión');
-          
           store().commit('auth/logout')
-          console.log(store().commit('auth/logout'));
-          
+          console.log('Cerrando sesión', store().commit('auth/logout'));
           return router.push({ name: 'index' });
         }
-      }).catch(e => {
+      }catch(e){
         console.log('Error', e);
-      })
-    }else{
-      return next();
+      }
     }
   })
 }

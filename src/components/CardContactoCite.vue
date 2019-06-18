@@ -1,5 +1,5 @@
 <template lang="pug">
-    q-card.smooth-shadow.q-ma-lg
+    q-card.smooth-shadow
         q-card-section
             .text-center
                 .text-h4 Contáctanos

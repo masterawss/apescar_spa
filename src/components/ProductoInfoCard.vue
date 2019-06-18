@@ -7,9 +7,9 @@
                         img(:src="producto.empresa.url_imagen")
                 q-item-section {{ producto.empresa.razon_social }}
             .row
-                .col-lg-6.col-md-6.col-12
+                .col-lg-6.col-md-6.col-sm-6.col-xs-12
                     q-img(:src="producto.path_imagen")
-                .col-lg-6.col-md-6.col-12.q-px-md.q-mt-md
+                .col-lg-6.col-md-6.col-sm-6.col-xs-12.q-px-md.q-mt-md
                     strong.text-h6 {{ producto.titulo }}
                     p
                         | {{ producto.descripcion }}

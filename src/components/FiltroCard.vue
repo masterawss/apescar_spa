@@ -4,7 +4,7 @@
             strong Filtrar por
             q-expansion-item(
               expand-separator
-              :default-opened="!$q.screen.lt.sm"
+              :default-opened="!$q.screen.lt.lg"
               label="Especies")
               q-card
                 q-card-section
@@ -21,7 +21,7 @@
 
             q-expansion-item(
               expand-separator
-              :default-opened="!$q.screen.lt.sm"
+              :default-opened="!$q.screen.lt.lg"
               label="Categorias")
               q-card
                 q-card-section

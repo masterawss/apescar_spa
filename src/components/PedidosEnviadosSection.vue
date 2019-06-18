@@ -6,18 +6,18 @@
         q-list(bordered separator)
             .text-h6.q-pa-md Publicaciones
             div(v-for="pedido in pedidos_enviados")
-                .row.q-col-gutter-sm
-                    .col-lg-6.col-md-6.col-sm-12.col-xs-12
-                        w-producto-card(v-if="pedido.publicacion.tipo_publicacion.descripcion == 'Oferta'" :producto="pedido.publicacion" )
+                .row
+                    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                        w-producto-card.no-shadow.q-mx-sm(v-if="pedido.publicacion.tipo_publicacion.descripcion == 'Oferta'" :producto="pedido.publicacion" :smaller="true" )
                         w-demanda-card(v-else :demanda="pedido.publicacion" )
-                    .col-lg-6.col-md-6.col-sm-12.col-xs-12
-                        w-pedido-enviado-mensaje-section(:pedido="pedido")
-                hr
+                    .col-lg-6.col-md-6.col-sm-6.col-xs-12
+                        w-pedido-enviado-mensaje-section.no-shadow(:pedido="pedido")
+                q-separator
                         
 </template>
 <script>
 
-import { QToggle, QChip } from 'quasar'
+import { QToggle, QChip, QSeparator } from 'quasar'
 import WInteresadoSection from './InteresadoSection'
 import WProductoCard from './ProductoCard'
 import WDemandaCard from '../components/DemandaCard'
@@ -27,7 +27,7 @@ import WPedidoEnviadoMensajeSection from '../components/PedidoEnviadoMensajeSect
 
 import gql from 'graphql-tag';
 export default {
-    components: {QToggle,WInteresadoSection, WProductoCard, WDemandaCard, QChip,WChipPedidoEstado, WPedidoEnviadoMensajeSection},
+    components: {QToggle,WInteresadoSection, WProductoCard, WDemandaCard, QChip,WChipPedidoEstado, WPedidoEnviadoMensajeSection, QSeparator},
     data: () => ({
         filter: {
             solo_aceptados: false
@@ -52,6 +52,7 @@ export default {
                         empresa{
                             id
                             razon_social
+                            url_imagen
                         }
                         unidad{
                             id

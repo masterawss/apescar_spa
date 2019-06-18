@@ -5,17 +5,21 @@ import VueApollo from 'vue-apollo';
 import { ApolloLink } from 'apollo-link'
 import { setContext } from 'apollo-link-context';
 
+import API from './env.json'
 
 import store from '../store'
 
 import { createUploadLink } from 'apollo-upload-client'
 
-const httpLink = createUploadLink({ uri: 'http://192.168.1.8/apescar/public/graphql', fetch: fetch })
+// console.log('API::::::::::::: ', API.BASE_URL_API);
+
+
+const httpLink = createUploadLink({ uri: API.BASE_URL_API + 'graphql', fetch: fetch })
 
 const authLink = setContext((_, { headers }) => {
     // get the authentication token from local storage if it exists
     // const token = localStorage.getItem('token');
-    const token = store().state.auth.token
+    var token = store().state.auth.token
     // return the headers to the context so httpLink can read them
     return {
       headers: {
@@ -38,7 +42,7 @@ export const apolloProvider = new VueApollo({
     if (graphQLErrors) {
       graphQLErrors.map(({ message, locations, path }) =>
         console.log(
-          `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+          `[GraphQL error]: Message: ${message}, Location: ${ JSON.stringify(locations) }, Path: ${path}`
         )
       )
     }

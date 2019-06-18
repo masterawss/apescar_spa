@@ -9,6 +9,7 @@
           q-avatar(@click="$router.push({name: 'index'})")
             img(src="/statics/logo2.png")
           | &nbsp apescar
+        w-notification-btn(v-if="isAuth")
 
       q-toolbar.q-mx-lg-xl.q-px-lg-xl(v-else)
         
@@ -21,8 +22,8 @@
         q-btn(v-if="isAuth" flat label="Demandas" @click="$router.push({name: 'demanda.index'})")
         // q-btn(flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
         
-
-        q-btn.q-mx-md(v-if="isAuth" flat round icon="notifications_none")
+        w-notification-btn(v-if="isAuth")
+        //- q-btn.q-mx-md(v-if="isAuth" flat round icon="notifications_none")
         
         .q-mr-lg-xl.q-pr-lg-md
           q-btn-dropdown( v-if="isAuth" :label="user.nombre" flat)
@@ -99,9 +100,10 @@
 <script>
 import { openURL, QAvatar, QDialog, QCard, QCardSection, QBtnDropdown } from 'quasar'
 import WLoginCard from '../components/Login.vue'
+import WNotificationBtn from '../components/NotificationBtn.vue'
 export default {
   name: 'MyLayout',
-  components: {QAvatar, WLoginCard, QDialog, QCard, QCardSection, QBtnDropdown},
+  components: {QAvatar, WLoginCard, QDialog, QCard, QCardSection, QBtnDropdown, WNotificationBtn},
   data () {
     return {
       login: false,

@@ -16,12 +16,12 @@
                 .col-lg-8.col-12
                     strong.text-h6.q-ml-sm Últimas ofertas
                     q-btn( v-if="isAuth" flat color="secondary" @click="$router.push({name: 'oferta.index'})" label="Ver más")
-                    .row
+                    .row.q-col-gutter-sm
                         .col-12.flex.flex-center(v-if="$apollo.queries.ofertas.loading")
                             q-spinner-ball(size="5em" color="primary")
                         div(v-else-if="$apollo.queries.ofertas.error" class="error apollo")
                             | A ocurrido un error
-                        .col-lg-3.col-md-3.col-sm-12.col-xs-12( v-else v-for="oferta in ofertas")
+                        .col-lg-3.col-md-3.col-sm-6.col-xs-12( v-else v-for="oferta in ofertas")
                             w-producto-card(:producto="oferta")
                     br
                     strong.text-h6.q-ml-sm Últimas demandas
@@ -34,26 +34,28 @@
                         div(v-else class="result apollo")
                         .col-lg-6.col-md-6.col-12(v-for="demanda in demandas")
                             w-demanda-card(:demanda="demanda")
-            
+
+            .row.bg-grey-2.justify-center
+                .col-lg-8.col-12
+                    .row.justify-between.q-my-sm.q-col-gutter-sm.items-center
+                        .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                            q-card.smooth-shadow(unelevate)
+                                q-card-section.text-center.text-primary
+                                    q-icon.q-my-md(name="find_in_page" size="50px")
+                                    .text-h6 Encuentra tu producto
+                        .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                            q-card.smooth-shadow(unelevate)
+                                q-card-section.text-center.text-primary
+                                    q-icon.q-my-md(name="find_replace" size="50px")
+                                    .text-h6 Articulación Segura
+                        .col-xs-12.col-sm-4.col-md-4.col-lg-4
+                            q-card.smooth-shadow(unelevate)
+                                q-card-section.text-center.text-primary
+                                    q-icon.q-my-md(name="security" size="50px")
+                                    .text-h6 Negocia con Seguridad
             .row.bg-gradient.justify-center
                 .col-lg-8.col-12
                     w-card-contacto-cite.q-my-md
-
-            .row.bg-grey-3.justify-center
-                .col-lg-8.col-12
-                    .row.justify-around
-                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
-                            q-card.q-ma-xl.smooth-shadow(unelevate)
-                                q-card-section
-                                    .text-h6 Encuentra tu producto
-                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
-                            q-card.q-ma-xl.smooth-shadow(unelevate)
-                                q-card-section
-                                    .text-h6 Articulación Segura
-                        .col-xs-12.col-sm-12.col-md-4.col-lg-4
-                            q-card.q-ma-xl.smooth-shadow(unelevate)
-                                q-card-section
-                                    .text-h6 Negocia con Seguridad
             
             .row.justify-center
                 .col-lg-8.col-12
@@ -85,13 +87,13 @@ import WProductoCard from '../components/ProductoCard'
 import WDemandaCard from '../components/DemandaCard'
 import WCardLogin from '../components/CardLogin'
 import WCardContactoCite from '../components/CardContactoCite'
-import { QCard, QCardSection, QInput, QSpinnerBall } from 'quasar'
+import { QCard, QCardSection, QInput, QSpinnerBall, QIcon } from 'quasar'
 import gql from 'graphql-tag';
 export default {
-    components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard, WCardLogin, QSpinnerBall, WCardContactoCite},
+    components: { QCard, QCardSection, QInput, WProductoCard, WDemandaCard, WCardLogin, QSpinnerBall, WCardContactoCite, QIcon},
     apollo: {
         ofertas: gql`{
-            ofertas(count: 4){
+            ofertas(limit: 4){
                 id
                 id_especie
                 titulo
@@ -110,7 +112,7 @@ export default {
             }
         }`,
         demandas: gql`{
-            demandas(count: 4){
+            demandas(limit: 4){
                 id
                 titulo
                 descripcion

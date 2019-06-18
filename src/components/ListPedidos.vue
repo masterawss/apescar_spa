@@ -1,7 +1,7 @@
 <template lang="pug">
     q-list
         .text-h5.q-ml-md Pedidos
-        q-item(v-for="pedido in pedidos")
+        q-item(v-for="pedido in pedidos" :key="pedido.id")
             q-item-section
                 q-item-label {{ pedido.empresa.razon_social }}
                 q-item-label(caption ) {{ pedido.mensaje_interesado }}

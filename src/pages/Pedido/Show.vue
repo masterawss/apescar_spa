@@ -1,5 +1,5 @@
 <template lang="pug">
-    q-page
+    q-page.bg-grey-1
         .doc-container
             .row.justify-center.q-my-md
                 .col-lg-8.col-12

@@ -7,7 +7,8 @@ module.exports = function (ctx) {
     boot: [
       'axios',
       'middleware',
-      'apollo'
+      'apollo',
+      'echo'
     ],
 
     css: [

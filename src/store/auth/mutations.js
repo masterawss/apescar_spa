@@ -20,6 +20,7 @@ export const logout = (state) => {
     state.info = null
     state.is_auth = false
     state.token = null
+    console.log(state);
 
     
 }
