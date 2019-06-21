@@ -1,23 +1,31 @@
 <template lang="pug">
-    q-card
-        q-img(
-            src="https://placeimg.com/500/300/nature"
-            :ratio="28/9")
-        q-card-section
-            q-avatar.smooth-shadow(size="100px" style="margin-top: -70px" )
-                img(src="https://cdn.quasar.dev/img/avatar.png")
-            strong {{empresa.razon_social}}
-            p.q-mt-md {{empresa.descripcion}}
-            
-            p.text-grey
-                q-icon(name="phone") 
-                span &nbsp &nbsp {{ empresa.telefono }}
-                br
-                q-icon(name="location_on") 
-                span &nbsp &nbsp {{ empresa.direccion }}
-                br
-                q-icon(name="email") 
-                span &nbsp &nbsp {{ empresa.email }}
+
+    div
+        q-card.smooth-shadow
+            q-card-section
+                .q-mx-md
+                    q-avatar.smooth-shadow.q-mr-lg(size="90px")
+                        img(:src=" empresa.url_imagen")
+                    .text-h6.text-primary {{ empresa.razon_social }}
+                    q-btn.q-my-sm(v-if="$store.state.auth.info.empresa.id == empresa.id" flat label="editar perfil" icon="edit" @click="$router.push({name: 'configuracion.index'})" color="secondary")
+
+                q-list.text-grey-9.q-mt-md( padding class="rounded-borders")
+                    q-item-label(header) Información de contacto
+                    q-item(v-ripple)
+                        q-item-section(avatar)
+                            q-icon.q-mr-sm(name="phone")
+                        q-item-section
+                            | {{ empresa.telefono }}
+                    q-item(v-ripple)
+                        q-item-section(avatar)
+                            q-icon.q-mr-sm(name="location_on")
+                        q-item-section
+                            | {{ empresa.direccion }}
+                    q-item(v-ripple)
+                        q-item-section(avatar)
+                            q-icon.q-mr-sm(name="mail")
+                        q-item-section
+                            | {{ empresa.email }}
         //- q-card.smooth-shadow
             q-card-section
                 q-list.text-grey-9( padding class="rounded-borders")
@@ -72,10 +80,10 @@
 </template>
 
 <script>
-import { QAvatar, QImg } from 'quasar'
+import { QAvatar } from 'quasar'
 export default {
     props: ['empresa'],
-    components: {QAvatar, QImg}
+    components: {QAvatar}
 }
 </script>
 

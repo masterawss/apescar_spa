@@ -20,6 +20,7 @@
           
         q-btn(v-if="isAuth" flat label="Ofertas" @click="$router.push({name: 'oferta.index'})")
         q-btn(v-if="isAuth" flat label="Demandas" @click="$router.push({name: 'demanda.index'})")
+        q-btn(v-if="isAuth" flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
         // q-btn(flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
         
         w-notification-btn(v-if="isAuth")

@@ -14,6 +14,8 @@ const routes = [
       { path: '/crear-demanda', component: () => import('pages/Demanda/Create.vue'), name: 'demanda.create', meta: { requiresAuth: true } },
       { path: '/editar-demanda/:id', component: () => import('pages/Demanda/Create.vue'), name: 'demanda.edit', meta: { requiresAuth: true } },
 
+
+      { path: '/empresas', component: () => import('pages/Empresa/Index.vue'), name: 'empresa.index', meta: { requiresAuth: true } },
       { path: '/empresa/:id', component: () => import('pages/Empresa/Show.vue'), name: 'empresa.show', meta: { requiresAuth: true } },
 
       { path: '/register', component: () => import('pages/Register/Index.vue'), name: 'register' },
