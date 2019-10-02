@@ -7,6 +7,7 @@
                     .row.q-col-gutter-lg
                         .col-lg-4.col-md-4.col-sm-6.col-xs-12(v-for="empresa in empresas")
                             w-card-empresa(:empresa="empresa")
+                            //- |{{empresas}}
 </template>
 
 <script>
@@ -21,6 +22,7 @@ export default {
                 razon_social
                 direccion
                 email
+                slug
                 descripcion
             }
         }`

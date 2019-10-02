@@ -22,8 +22,9 @@
               w-producto-card.smooth-shadow.q-ma-xs(:producto="producto")
             .col-12.text-center(v-if="filter.is_all")
               .text-h5.q-my-md.text-primary No hay más resultados
-            .col-12.flex.flex-center.q-py-xl(v-if="$apollo.queries.ofertas.loading")
-              q-spinner-ball(size="5em" color="primary")
+            .col-12(v-if="$apollo.queries.ofertas.loading")
+              .flex.flex-center.q-py-xl
+                q-spinner-ball(size="5em" color="primary")
             .col-12.text-center(v-else)
               q-btn.q-my-md(label="Ver más" color="secondary" rounded unelevated outline @click="showMore")
           //- template(v-slot:loading)

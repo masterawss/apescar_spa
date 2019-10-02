@@ -66,6 +66,11 @@
                             img.q-mb-md(max-width="100%" height="100px"  src="https://i1.wp.com/www.itp.gob.pe/wp-content/uploads/2018/01/logo-itp2.png?fit=500%2C250&ssl=1")
                         .col-lg-4.col-sm-12.text-center
                             img.q-mb-md(max-width="100%" height="50" src="https://www.itp.gob.pe/wp-content/uploads/2018/03/CITEpesquero_amazonico_Ahuashiyacu.png")
+            .row.justify-center.bg-black
+                .col-6.text-center
+                    q-btn.text-white( flat no-caps label="Términos y condiciones de uso" @click="$router.push({name: 'terminos'})")
+                .col-6.text-center
+                    q-btn.text-white( flat no-caps label="Políticas de Privacidad")
 </template>
 <style>
     .bg-landing{

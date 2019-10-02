@@ -10,6 +10,12 @@
                 span ¿No eres miembro aún?
                 br
                 q-btn(color="primary" @click="$router.push({name: 'register'})" flat) ¡Regístrate aquí!
+            .text-center
+                small.text-grey
+                    | Al ingresar aceptas nuestros 
+                    router-link(:to="{name: 'terminos'}") Términos y Condiciones de uso 
+                    | y nuestras 
+                    router-link(:to="{name: 'politicas_privacidad'}") Políticas de privacidad
 </template>
 
 <script>

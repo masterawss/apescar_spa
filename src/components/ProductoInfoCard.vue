@@ -33,6 +33,7 @@
                             .col-lg-4.col-12
                                 q-input(v-model="form.fecha_entrega" type="date" label="Fecha de entrega")
                         q-btn.q-my-md.full-width(label="Pedir" :loading="loading" @click="realizarPedido" color="secondary")
+                        w-btn-contactar.q-my-md(full-width="true" :id_empresa="producto.empresa.id")
                     div(v-else)
                         q-btn(label="Editar publicación" color="primary" @click="$router.push({name: 'oferta.edit' , params: { id: producto.id } })")
 
@@ -41,9 +42,10 @@
 <script>
 import { QCard, QCardSection, QItemSection, QAvatar, QImg, QInput } from 'quasar'
 import WProductoCard from './ProductoCard.vue'
+import WBtnContactar from './BtnContactar.vue'
 import gql from 'graphql-tag';
 export default {
-    components: { QCard, QCardSection, QItemSection, QAvatar, QImg, QInput, WProductoCard },
+    components: { QCard, QCardSection, QItemSection, QAvatar, QImg, QInput, WProductoCard, WBtnContactar },
     apollo: {
         unidades: gql`query{
             unidades{

@@ -19,8 +19,8 @@
           | &nbsp apescar
           
         q-btn(v-if="isAuth" flat label="Ofertas" @click="$router.push({name: 'oferta.index'})")
-        q-btn(v-if="isAuth" flat label="Demandas" @click="$router.push({name: 'demanda.index'})")
-        q-btn(v-if="isAuth" flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
+        //- q-btn(v-if="isAuth" flat label="Demandas" @click="$router.push({name: 'demanda.index'})")
+        //- q-btn(v-if="isAuth" flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
         // q-btn(flat label="Empresas" @click="$router.push({name: 'empresa.index'})")
         
         w-notification-btn(v-if="isAuth")
@@ -54,12 +54,17 @@
           q-item-section
             q-item-label Inicio
 
+        //- q-item(clickable @click="$router.push({name: 'empresa.index' })")
+          q-item-section(avatar)
+            q-icon(name='build')
+          q-item-section
+            q-item-label Empresas
         q-item(clickable @click="$router.push({name: 'oferta.index' })")
           q-item-section(avatar)
             q-icon(name='shopping_cart')
           q-item-section
             q-item-label Ofertas
-        q-item(clickable @click="$router.push({name: 'demanda.index' })")
+        //- q-item(clickable @click="$router.push({name: 'demanda.index' })")
           q-item-section(avatar)
             q-icon(name='shopping_basket')
           q-item-section
